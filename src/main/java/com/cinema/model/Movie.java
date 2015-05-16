@@ -1,10 +1,16 @@
 package com.cinema.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-public class Movie {
+@Entity
+public class Movie implements Serializable {
+
+	private static final long serialVersionUID = -6685667598944744746L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,5 +53,39 @@ public class Movie {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Movie)) {
+			return false;
+		}
+		
+		Movie movie = (Movie)obj;
+		if (id != null) {
+			if (!id.equals(movie.id)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Movie [id=" + id + ", name=" + name + ", characters="
+				+ characters + ", description=" + description + "]";
+	}
+	
+	
 
 }
