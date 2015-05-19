@@ -1,4 +1,4 @@
-package com.library.dao;
+package com.cinema.dao;
 
 import java.util.Collection;
 import java.util.Date;

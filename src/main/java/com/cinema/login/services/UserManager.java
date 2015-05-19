@@ -9,10 +9,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
+import com.cinema.dao.UserDAO;
 import com.cinema.model.User;
-import com.library.dao.UserDAO;
 
 @Stateless
 @Path("user")
@@ -27,17 +28,18 @@ public class UserManager {
 	private UserContext userContext;
 
 	@POST
+	@Path("register")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void registerUser(User newUser) {
 		userDAO.addUser(newUser);
 		userContext.setCurrentUser(newUser);
 	}
 
-	@Path("login")
 	@POST
+	@Path("login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response loginUser(User user) {
-		boolean isUserValid = userDAO.validateUserCredentials(user);
+		boolean isUserValid = userDAO.validateUserCredentials(user.getUserName(), user.getPassword());
 
 		if (!isUserValid) {
 			return Response.status(HttpURLConnection.HTTP_UNAUTHORIZED).build();
@@ -47,8 +49,8 @@ public class UserManager {
 		return RESPONSE_OK;
 	}
 
-	@Path("authenticated")
 	@GET
+	@Path("authenticated")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response isAuthenticated() {
 		if (userContext.getCurrentUser() == null) {
@@ -56,9 +58,15 @@ public class UserManager {
 		}
 		return RESPONSE_OK;
 	}
-
-	@Path("current")
+	
 	@GET
+	@Path("logout")
+	public void logout() {
+		
+	}
+	
+	@GET
+	@Path("current")	
 	@Consumes(MediaType.TEXT_PLAIN)
 	public String getUser() {
 		if (userContext.getCurrentUser() == null) {
@@ -67,4 +75,6 @@ public class UserManager {
 
 		return userContext.getCurrentUser().getUserName();
 	}
+	
+	
 }

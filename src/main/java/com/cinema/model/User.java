@@ -10,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 public class User implements Serializable {
 
@@ -20,12 +22,20 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String userName;
-	private String firstName;
-	private String lastName;
+//	private String firstName;
+//	private String lastName;
 	private String password;
 	
-	@OneToMany(cascade=CascadeType.PERSIST)
-	private List<Movie> watchedMovies = new ArrayList<>();
+	public User() {
+	}
+	
+	public User(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+	}
+	
+//	@OneToMany(cascade=CascadeType.PERSIST)
+//	private List<Movie> watchedMovies = new ArrayList<>();
 
 	public String getUserName() {
 		return userName;
@@ -34,22 +44,22 @@ public class User implements Serializable {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+//
+//	public String getFirstName() {
+//		return firstName;
+//	}
+//
+//	public void setFirstName(String firstName) {
+//		this.firstName = firstName;
+//	}
+//
+//	public String getLastName() {
+//		return lastName;
+//	}
+//
+//	public void setLastName(String lastName) {
+//		this.lastName = lastName;
+//	}
 
 	public String getPassword() {
 		return password;
@@ -86,9 +96,16 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", password="
+		return "User [id=" + id + ", userName=" + userName + ", password="
 				+ password + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", userName=" + userName + ", firstName="
+//				+ firstName + ", lastName=" + lastName + ", password="
+//				+ password + "]";
+//	}
+	
 
 }
