@@ -1,4 +1,4 @@
-package com.ciname.rest;
+package com.cinema.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
