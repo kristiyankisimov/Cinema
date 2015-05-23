@@ -13,8 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "getMovieByTitle", query = "SELECT m FROM Movie m WHERE m.title = :title"),
-	@NamedQuery(name = "getAllMovies", query = "SELECT m FROM Movie m") })
+		@NamedQuery(name = "getMovieByTitle", query = "SELECT m FROM Movie m WHERE m.title = :title"),
+		@NamedQuery(name = "getAllMovies", query = "SELECT m FROM Movie m") })
 public class Movie implements Serializable {
 
 	private static final long serialVersionUID = -6685667598944744746L;
@@ -24,15 +24,15 @@ public class Movie implements Serializable {
 	private Long id;
 
 	private String title;
-	
+
 	private String description;
-	
+
 	private Integer length;
-	
+
 	private Double price;
-	
+
 	public Movie() {
-		
+
 	}
 
 	public Movie(String title, String description, Integer length, Double price) {
@@ -98,8 +98,8 @@ public class Movie implements Serializable {
 		if (!(obj instanceof Movie)) {
 			return false;
 		}
-		
-		Movie movie = (Movie)obj;
+
+		Movie movie = (Movie) obj;
 		if (id != null) {
 			if (!id.equals(movie.id)) {
 				return false;
@@ -110,12 +110,7 @@ public class Movie implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Movie [id=" + id + ", title=" + title + ", description="
-				+ description + ", length=" + length + ", price=" + price + "]";
+		return "Movie [id=" + id + ", title=" + title + "]";
 	}
-
-	
-	
-	
 
 }

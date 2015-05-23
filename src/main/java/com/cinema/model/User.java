@@ -24,15 +24,14 @@ public class User implements Serializable {
 	private String email;
 	private Boolean isAdmin;
 	private String password;
-	
+
 	public User() {
 	}
-	
+
 	public User(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
 	}
-	
 
 	public User(String userName, String name, String email, Boolean isAdmin,
 			String password) {
@@ -91,9 +90,9 @@ public class User implements Serializable {
 		if (!(obj instanceof User)) {
 			return false;
 		}
-		User other = (User) obj;
+		User user = (User) obj;
 		if (id != null) {
-			if (!id.equals(other.id)) {
+			if (!id.equals(user.id)) {
 				return false;
 			}
 		}
@@ -110,9 +109,8 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", password="
-				+ password + "]";
+		return "User [id=" + id + ", userName=" + userName + ", isAdmin="
+				+ isAdmin + "]";
 	}
-
 
 }
