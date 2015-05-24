@@ -16,9 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.cinema.login.services.UserContext;
 import com.cinema.model.User;
 
-@WebFilter("/html/*")
-public class ApplicationFilter implements Filter {
+@WebFilter("/user_type_filter.html")
+public class UserTypeFilter implements Filter {
 
+	private static final String PATH_ADMIN = "/admin";
+	private static final String PATH_USER = "/user";
+	private static final String PATH_PAGES_ROOT = "/html";
+	private static final String PATH_INDEX_PAGE = "/index.html";
 	private static final String PATH_LOGIN_PAGE = "/login.html";
 	
 	@Inject
@@ -26,32 +30,36 @@ public class ApplicationFilter implements Filter {
 
 	@Override
 	public void destroy() {
+
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest servletRequest,
+			ServletResponse servletResponse, FilterChain filterChain)
+			throws IOException, ServletException {
 
-		if (!isHttpRequest(request, response)) {
+		if (!isHttpRequest(servletRequest, servletResponse)) {
 			return;
 		}
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		httpResponse
-				.setHeader("Cache-Control",
-						"no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0");
-		httpResponse.setHeader("Pragma", "no-cache");
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
 
 		User currentUser = context.getCurrentUser();
 
 		if (currentUser == null) {
-			String loginURL = httpRequest.getContextPath() + PATH_LOGIN_PAGE;
-			httpResponse.sendRedirect(loginURL);
+			String loginURL = request.getContextPath() + PATH_LOGIN_PAGE;
+			response.sendRedirect(loginURL);
 			return;
 		}
 
-		chain.doFilter(request, response);
+		String redirectURL = request.getContextPath() + PATH_PAGES_ROOT
+				+ (currentUser.getIsAdmin() ? PATH_ADMIN : PATH_USER) + PATH_INDEX_PAGE;
+
+		response.sendRedirect(redirectURL);
+
+		filterChain.doFilter(servletRequest, servletResponse);
+
 	}
 
 	@Override

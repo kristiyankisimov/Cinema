@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -23,6 +24,7 @@ import com.cinema.model.User;
 public class UserManager {
 
 	private static final Response RESPONSE_OK = Response.ok().build();
+	private static final String PATH_LOGIN_PAGE = "/login.html";
 
 	@Inject
 	private UserDAO userDAO;
@@ -48,7 +50,8 @@ public class UserManager {
 		if (!isUserValid) {
 			return Response.status(HttpURLConnection.HTTP_UNAUTHORIZED).build();
 		}
-		userContext.setCurrentUser(user);
+		User currentUser = userDAO.findUserByName(user.getUserName());
+		userContext.setCurrentUser(currentUser);
 
 		return RESPONSE_OK;
 	}
@@ -66,10 +69,11 @@ public class UserManager {
 	@GET
 	@Path("logout")
 	@Consumes(MediaType.TEXT_PLAIN)
-	public Response logout(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
+	public Response logout(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException, ServletException {
 		userContext.setCurrentUser(null);
+		request.logout();
 		request.getSession().invalidate();
-		response.sendRedirect(request.getContextPath() + "/login.html");
+		response.sendRedirect(request.getContextPath() + PATH_LOGIN_PAGE);
 		return RESPONSE_OK;
 	}
 	

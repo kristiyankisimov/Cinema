@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Login Form</title>
-        <link rel="stylesheet" type = "text/css "href="styles/style.css">
+<head>
+<meta charset="utf-8" />
+<title>Login Form</title>
+<link rel="stylesheet" type="text/css " href="styles/style.css">
 <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 
 <script type="text/javascript">
-
 	function login() {
 		var username = $("#userName").val();
 		var password = $("#pwd").val();
@@ -35,7 +34,7 @@
 					$("#reset_login").trigger("click");
 				},
 				200 : function() {
-					window.location.replace("index.html");
+					window.location.replace("./user_type_filter.html");
 				}
 			}
 		});
@@ -43,18 +42,30 @@
 </script>
 </head>
 <body>
-		<section class="container">
-    <div class="user">
-      <h1>Login to Cinema Web App</h1>
-      <form method="post" id="login_form" action="index.html">
-        <p><input type="text" name="user" id="userName" value="" placeholder="Username or Email"></p>
-        <p><input type="password" name="password" id="pwd" value="" placeholder="Password"></p>
-		<p class="btn"><input type="button" onclick="login()" name="commit" value="Login"></p>
-      </form>
-    </div>
-	
-	<div id="registration_link" class="register">
-      <p>Don't have an account? <a href="register.html">Click here to register</a>.</p>
-    </div>
-	</body>
-	</html>
+	<section class="container">
+		<div class="user">
+			<h1>Login to Cinema Web App</h1>
+			<form method="post" id="login_form" action="index.html">
+				<p>
+					<input type="text" name="user" id="userName" value=""
+						placeholder="Username or Email">
+				</p>
+				<p>
+					<input type="password" name="password" id="pwd" value=""
+						placeholder="Password">
+				</p>
+				<p class="btn">
+					<input type="button" onclick="login()" name="commit" value="Login">
+				</p>
+			</form>
+		</div>
+
+		<div id="registration_link" class="register">
+			<p>
+				Don't have an account? <a href="register.html">Click here to
+					register</a>.
+			</p>
+		</div>
+	</section>
+</body>
+</html>
