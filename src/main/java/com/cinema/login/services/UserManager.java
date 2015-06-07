@@ -36,6 +36,7 @@ public class UserManager {
 	@Path("register")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void registerUser(User newUser) {
+		newUser.setIsAdmin(false);
 		userDAO.addUser(newUser);
 		userContext.setCurrentUser(newUser);
 	}
