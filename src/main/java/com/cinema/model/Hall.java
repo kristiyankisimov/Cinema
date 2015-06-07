@@ -3,6 +3,7 @@ package com.cinema.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class Hall {
 
 	private Integer number;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.PERSIST)
 	private Set<Seat> seats = new HashSet<>();
 
 	public Hall() {

@@ -1,9 +1,11 @@
 package com.cinema.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -14,10 +16,13 @@ public class Ticket {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private User user;
-
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Screening screening;
 
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Seat seat;
 
 	private Boolean checked;

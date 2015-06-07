@@ -2,10 +2,12 @@ package com.cinema.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,8 +23,10 @@ public class Screening {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Movie movie;
-
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Hall hall;
 
 	public Date getDate() {
