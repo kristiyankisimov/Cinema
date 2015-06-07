@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,6 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
+@NamedQueries({
+		@NamedQuery(name = "getScreeningByDate", query = "SELECT s FROM Screening s WHERE s.date = :date"),
+		@NamedQuery(name = "getScreeningByHall", query = "SELECT s FROM Screening s WHERE s.hall.id = :HALL_ID"),
+		@NamedQuery(name = "getAllScreenings", query = "SELECT s FROM Screening s") })
 public class Screening {
 
 	@Id
@@ -28,6 +34,16 @@ public class Screening {
 	
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Hall hall;
+
+	public Screening() {
+		
+	}
+	public Screening(Date date, Movie movie, Hall hall) {
+		super();
+		this.date = date;
+		this.movie = movie;
+		this.hall = hall;
+	}
 
 	public Date getDate() {
 		return date;

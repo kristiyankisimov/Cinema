@@ -36,6 +36,14 @@ public class Seat implements Serializable {
 		this.isReserved = Boolean.FALSE;
 		this.seatNumber = seatNumber;
 	}
+	
+	
+
+	public Seat(Integer seatNumber, Boolean isReserved, Date reservationTime) {
+		this.seatNumber = seatNumber;
+		this.isReserved = isReserved;
+		this.reservationTime = reservationTime;
+	}
 
 	public Long getId() {
 		return id;
