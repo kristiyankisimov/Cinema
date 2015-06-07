@@ -5,11 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
+@NamedQueries({
+		@NamedQuery(name = "getTicketById", query = "SELECT t FROM Ticket t WHERE t.id = :id"),
+		@NamedQuery(name = "getTicketsByUserName", query = "SELECT t FROM Ticket t WHERE t.user.userName = :userName"),
+		@NamedQuery(name = "getTicketsByScreeningId", query = "SELECT t FROM Ticket t WHERE t.screening.id = :screeningId"),
+		@NamedQuery(name = "getAllCheckedTickets", query = "SELECT t FROM Ticket t WHERE t.checked = :checked"),
+		@NamedQuery(name = "getAllTickets", query = "SELECT t FROM Ticket t") })
 public class Ticket {
 
 	@Id
@@ -18,7 +26,7 @@ public class Ticket {
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private User user;
-	
+
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Screening screening;
 

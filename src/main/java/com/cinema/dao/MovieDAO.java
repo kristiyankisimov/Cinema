@@ -34,7 +34,7 @@ public class MovieDAO {
 	}
 
 	public Movie getMovieById(Long id) {
-		TypedQuery<Movie> query = em.createNamedQuery("getMovieBiId",
+		TypedQuery<Movie> query = em.createNamedQuery("getMovieById",
 				Movie.class).setParameter("id", id);
 
 		return queryMovie(query);

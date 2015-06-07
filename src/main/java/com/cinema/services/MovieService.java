@@ -14,22 +14,21 @@ import javax.ws.rs.core.Response;
 import com.cinema.dao.MovieDAO;
 import com.cinema.model.Movie;
 
-
 @Stateless
 @Path("movies")
 public class MovieService {
-	
+
 	private static final Response RESPONSE_OK = Response.ok().build();
-	
+
 	@Inject
 	private MovieDAO movieDAO;
-	
+
 	@GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Movie> getAllMovies() {
-        return movieDAO.getAllMovies();
-    }
-	
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Movie> getAllMovies() {
+		return movieDAO.getAllMovies();
+	}
+
 	@GET
 	@Path("{movieId}")
 	@Produces(MediaType.APPLICATION_JSON)
