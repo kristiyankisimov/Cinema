@@ -19,7 +19,7 @@ function drawTableWithScreenings() {
     });
 }
   function renderTable(data) {
-    $("#screenings_table tr").remove();
+    $("#screenings_table tr:gt(0)").remove();
     var screenings = data.screening;
     for (var i = 0; i < screenings.length; i++) {
         renderRow(screenings[i]);

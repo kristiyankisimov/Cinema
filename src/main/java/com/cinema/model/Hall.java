@@ -8,11 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "getAllSeats", query = "SELECT h FROM Hall h") })
+
 public class Hall {
 
 	@Id
@@ -75,7 +81,10 @@ public class Hall {
 
 	@Override
 	public String toString() {
-		return "Hall [id=" + id + ", number=" + number + "]";
+		return "Hall [id=" + id + ", number=" + number + ", seats=" + seats
+				+ "]";
 	}
+
+	
 
 }
