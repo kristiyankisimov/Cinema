@@ -3,8 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="./../../js/jquery-2.1.3.min.js"></script>
+<script type="text/javascript">
+
+drawTableWithScreenings();
+function drawTableWithScreenings() {
+	
+    $.ajax({
+        url : './../../rest/screenings',
+        type : "GET",
+        dataType : "json",
+        success : function(data) {
+            renderTable(data);
+        }
+    });
+}
+  function renderTable(data) {
+    $("#screenings_table tr").remove();
+    var screenings = data.screening;
+    for (var i = 0; i < screenings.length; i++) {
+        renderRow(screenings[i]);
+    }
+}
+
+
+function renderRow(rowData) {
+    var row = $("<tr />")
+    $("#screenings_table").append(row); 
+    row.append($("<td>" + rowData.date + "</td>"));
+    row.append($('<td><a href="movie-information.html">' + rowData.movie.title + "</a></td>"));
+    row.append($("<td>" + rowData.hall.number + "</td>"));
+    row.append($("<td>" + rowData.movie.price + "</td>"));
+    row.append($("<td>" + rowData.movie.length + "</td>"));
+    
+   
+    var BookTd = $("<td />");
+    var link = $("<button>Book a Ticket</button>");
+    BookTd.append(link);
+    row.append(BookTd);
+    link.click(function() {
+    	
+    });
+
+    
+    row.append($("<td/>"));
+}
+</script>
 </head>
 <body>
+
+   <div align="center">
+		<h1>Cinema Application</h1>
+	</div>
+	<div>
+		<table id="screenings_table" class="table">
+			<tr>
+				<th>Date</th>
+				<th>Movie</th>
+				<th>Hall</th>
+				<th>Price</th>
+				<th>Duration</th>
+			</tr>
+		</table>
+	</div>
+
+
 
 </body>
 </html>
