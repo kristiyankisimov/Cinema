@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
 		@NamedQuery(name = "getMovieByTitle", query = "SELECT m FROM Movie m WHERE m.title = :title"),
 		@NamedQuery(name = "getAllMovies", query = "SELECT m FROM Movie m"),
-		@NamedQuery(name = "getMovieById", query = "SELECT m FROM Movie M WHERE m.id = :id") })
+		@NamedQuery(name = "getMovieById", query = "SELECT m FROM Movie m WHERE m.id = :id") })
 public class Movie implements Serializable {
 
 	private static final long serialVersionUID = -6685667598944744746L;
