@@ -62,11 +62,14 @@
 
 		$.ajax({
 			url : './../../rest/movies/' + object.id,
-			type : "GET",
-			dataType : "json",
-			success : function(data) {
-				console.log(data);
-				window.location.replace("movie-information.html");
+			type : "POST",
+			contentType : "application/json;charset=UTF-8",
+			statusCode : {
+				
+				200 : function() {
+					window.location.replace("movie-information.html");
+				}
+
 			}
 		});
 	}
