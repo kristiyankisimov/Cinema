@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <title>User Form</title>
-<link rel="stylesheet" type="text/css " href="./../../styles/userstyle.css">
+<link rel="stylesheet" type="text/css "
+	href="./../../styles/userstyle.css">
 <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {
-		
+
 		$.ajax({
 			url : 'rest/movies',
 			type : "GET",
@@ -19,8 +20,7 @@
 
 					for (var i = 0; i < movies.length; i++) {
 						var movie = movies[i];
-						
-						
+
 						/* '<li style="cursor: pointer;" onclick="showMovieDetails()">' + 
 							'<p>' + 
 								'<a href="/movie/Far+From+the+Madding+Crowd"> <span>Far
@@ -64,22 +64,23 @@
 
 		<div id="topnav" class="topnav">
 			<div id="pnlLogin">
-			
+
 				<form id="logout_form" name="logout_form" method="get"
 					action="./../../rest/user/logout">
 					<button type="submit" class="btn btn-default">Log out</button>
 				</form>
-			
+
 			</div>
 		</div>
 	</div>
 	<div id="content">
 		<ul id="nav">
-			
+
+			<li><a href="index.html"><img width="20" height="10"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGYAAABmCAMAAAAOARRQAAAAgVBMVEX///8yMjIAAAAtLS13d3cqKirh4eEXFxcFBQWampr09PSWlpYzMzMlJSUgICApKSkNDQ25ubkaGhrs7Ox9fX3q6uqKiopVVVXFxcWhoaFubm67u7vU1NQ9PT1HR0cUFBRgYGA7Ozutra1eXl7Y2NhUVFRERERoaGjMzMyGhoafn5/72/JGAAAEIElEQVRoge2Y6ZKqMBCFIZFFhAQBEVBAcZ/3f8AbEpFGorKMU3WrOP9Eis8+6T6JKMqkSZMmTZo06cuKFsFtfvwyxM8MxORdvkpZEmTmBiEG2l+/BvHDHLkexaqKsYfjL1H0AyuFYI0QrNqqYyTWNyhLFbmGg7VLtDlpKqsoz7a/DvFDhFyi4TS2yg82c071vOKXCzpekMsMo1nEP1pLuyzIQbfVb1I2Z24YSR4Dc107pXHuoTJuG8+5isFgqzTM07A9Bx75N8yNIwX/GJroLnMzjKKfhGGnqHm9SCk3LvBZcch0Da+U4Tr+EMomFR02ayVMdCk52NxtlQCxWyoNKSck3DBnIWmqVVAukOrtNzPksFkSspe9IauMjyTeR/LvC7VcIMdwclxRBmA2YiRxoj8uWcfttv6kXHclBxMPq0Mx1t0wPK8XdRvYCKVhDdJvfIE0dShmdWHtwzqMAsNYech1TXSuc8YqjLqS/pgNFoZdgGF8gNg1zfBAQG9PeCjGWogMgyN53PF+sJlUioIavxKj2h9zTPgT6RnMQLRnY0qrh2FzDY1Th7RAxDIsZxm2AyP5w/sBmOPB510zpy+GG1ZmGBjJldjTGmsgcuYuP6iMs7ulgF6FPvyxtCzvMeiVcegEyo1TUavdafuOMt5hNAHWx86TYRXHSMFviQ585XBWfKaEDj9WkLA2zErYUaNp2EPECYEPCb8La8kHyOokMgx22LE8NbUMq6SZZ7CRxXvOcVO9/exa99DH9S7JerXsMCpnCOP2sOsPWqsLn7UQhjmLuoGs4LVhD+PwAhgXkJaZDflJOfjsHAZ+iH7ihn0QzS9gJWOecdRNpLtoxDNMhRmmFMZ7w+6yca6CfL2uMb9mtzcpa26K0AeGibPZe8MexpGfuiCxObBrzxOkB+LgCseAnc2eB/+dcWZQd5wVa9w4FDaM22Yiw0AaKlHKB7+zcA4jITrzc1y+A0vgZ9wwFWSY1cOwSh4Ch10/4AWZAchFapYZBjJCT3iu9aJwk8CozvdshCjswQRR5wL+GIlc6wlRy/HfAds3a7YOP40OOMNz2PzD4L/heOry5WObssTW8iLDPon9S3j14KYW3LCBlDLjuu2eMzTMsEp08ZnBMZINrE85824YcxRlwkyY0RhMSSX6OlZHYrCW3YqlUBGkL4drHAanjcOkNd+/KGgUBqfPJ/Al+QKGtg/gM3n0jcHgdfu4qss3vjEYKtlF/IO0nDEYTZLu1sz7G0z+Nxj3bzDy1p8wE2bC/OeYYCzmp32rRKEsqXpgOr5P28j+DHbH4Pfva2plkt2qO4YG3ShKhEZgMOlYjKLEuGVbV8zL1/wyFZmDh2Cwc+hBUZTjIiMGlCl5b8X+5+eNm+g67uzY/RErvSnZW6vne6Q3TZo0aaD+AS2WTaaDVMSuAAAAAElFTkSuQmCC"> Home</a></li>
 			<li><a href="program.html">Programs</a></li>
 			<li><a href="history.html">History</a></li>
 			<li><a href="contact.html">Contact</a></li>
-			<li><a href="home.html">Home</a></li>
+
 		</ul>
 
 		<div id="main" class="layout-2col">

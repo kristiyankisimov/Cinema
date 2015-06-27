@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css " href="./../../styles/movie-information-style.css">
-<script type="text/javascript" src="./../../js/jquery-2.1.3.min.js"></script>
+<meta charset="utf-8" />
+<title>User Form</title>
+<link rel="stylesheet" type="text/css "
+	href="./../../styles/userstyle.css">
+<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+
 <script type="text/javascript">
+
 $.ajax({
 	url : './../../rest/movies/current',
 	type : "GET",
@@ -18,8 +21,46 @@ $.ajax({
 </script>
 </head>
 <body>
-<div id="movieDiv"> </div>
 
+	<div id="masthead">
+
+		<h1>
+			<br> Cinema web app!
+		</h1>
+		<br>
+
+
+		<h2>
+			The most interesting movies only here :) <br> <br>
+		</h2>
+		<img
+			src="data:image/png;base64,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"
+			style="margin-left: 175px">
+
+		<div id="topnav" class="topnav">
+			<div id="pnlLogin">
+
+				<form id="logout_form" name="logout_form" method="get"
+					action="./../../rest/user/logout">
+					<button type="submit" class="btn btn-default">Log out</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	<div id="content">
+		<ul id="nav">
+
+			<li><a href="index.html"><img width="20" height="10"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGYAAABmCAMAAAAOARRQAAAAgVBMVEX///8yMjIAAAAtLS13d3cqKirh4eEXFxcFBQWampr09PSWlpYzMzMlJSUgICApKSkNDQ25ubkaGhrs7Ox9fX3q6uqKiopVVVXFxcWhoaFubm67u7vU1NQ9PT1HR0cUFBRgYGA7Ozutra1eXl7Y2NhUVFRERERoaGjMzMyGhoafn5/72/JGAAAEIElEQVRoge2Y6ZKqMBCFIZFFhAQBEVBAcZ/3f8AbEpFGorKMU3WrOP9Eis8+6T6JKMqkSZMmTZo06cuKFsFtfvwyxM8MxORdvkpZEmTmBiEG2l+/BvHDHLkexaqKsYfjL1H0AyuFYI0QrNqqYyTWNyhLFbmGg7VLtDlpKqsoz7a/DvFDhFyi4TS2yg82c071vOKXCzpekMsMo1nEP1pLuyzIQbfVb1I2Z24YSR4Dc107pXHuoTJuG8+5isFgqzTM07A9Bx75N8yNIwX/GJroLnMzjKKfhGGnqHm9SCk3LvBZcch0Da+U4Tr+EMomFR02ayVMdCk52NxtlQCxWyoNKSck3DBnIWmqVVAukOrtNzPksFkSspe9IauMjyTeR/LvC7VcIMdwclxRBmA2YiRxoj8uWcfttv6kXHclBxMPq0Mx1t0wPK8XdRvYCKVhDdJvfIE0dShmdWHtwzqMAsNYech1TXSuc8YqjLqS/pgNFoZdgGF8gNg1zfBAQG9PeCjGWogMgyN53PF+sJlUioIavxKj2h9zTPgT6RnMQLRnY0qrh2FzDY1Th7RAxDIsZxm2AyP5w/sBmOPB510zpy+GG1ZmGBjJldjTGmsgcuYuP6iMs7ulgF6FPvyxtCzvMeiVcegEyo1TUavdafuOMt5hNAHWx86TYRXHSMFviQ585XBWfKaEDj9WkLA2zErYUaNp2EPECYEPCb8La8kHyOokMgx22LE8NbUMq6SZZ7CRxXvOcVO9/exa99DH9S7JerXsMCpnCOP2sOsPWqsLn7UQhjmLuoGs4LVhD+PwAhgXkJaZDflJOfjsHAZ+iH7ihn0QzS9gJWOecdRNpLtoxDNMhRmmFMZ7w+6yca6CfL2uMb9mtzcpa26K0AeGibPZe8MexpGfuiCxObBrzxOkB+LgCseAnc2eB/+dcWZQd5wVa9w4FDaM22Yiw0AaKlHKB7+zcA4jITrzc1y+A0vgZ9wwFWSY1cOwSh4Ch10/4AWZAchFapYZBjJCT3iu9aJwk8CozvdshCjswQRR5wL+GIlc6wlRy/HfAds3a7YOP40OOMNz2PzD4L/heOry5WObssTW8iLDPon9S3j14KYW3LCBlDLjuu2eMzTMsEp08ZnBMZINrE85824YcxRlwkyY0RhMSSX6OlZHYrCW3YqlUBGkL4drHAanjcOkNd+/KGgUBqfPJ/Al+QKGtg/gM3n0jcHgdfu4qss3vjEYKtlF/IO0nDEYTZLu1sz7G0z+Nxj3bzDy1p8wE2bC/OeYYCzmp32rRKEsqXpgOr5P28j+DHbH4Pfva2plkt2qO4YG3ShKhEZgMOlYjKLEuGVbV8zL1/wyFZmDh2Cwc+hBUZTjIiMGlCl5b8X+5+eNm+g67uzY/RErvSnZW6vne6Q3TZo0aaD+AS2WTaaDVMSuAAAAAElFTkSuQmCC"> Home</a></li>
+			<li><a href="program.html">Programs</a></li>
+			<li><a href="history.html">History</a></li>
+			<li><a href="contact.html">Contact</a></li>
+
+		</ul>
+
+	</div>
+	
+	<div id="movieDiv"> </div>
 
 </body>
 </html>
