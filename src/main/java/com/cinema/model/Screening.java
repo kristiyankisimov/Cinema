@@ -1,5 +1,6 @@
 package com.cinema.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -20,7 +21,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 		@NamedQuery(name = "getScreeningByDate", query = "SELECT s FROM Screening s WHERE s.date = :date"),
 		@NamedQuery(name = "getScreeningByHall", query = "SELECT s FROM Screening s WHERE s.hall.id = :HALL_ID"),
 		@NamedQuery(name = "getAllScreenings", query = "SELECT s FROM Screening s") })
-public class Screening {
+public class Screening implements Serializable {
+
+	private static final long serialVersionUID = -4706458560125137984L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,18 +34,27 @@ public class Screening {
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Movie movie;
-	
+
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Hall hall;
 
 	public Screening() {
-		
+
 	}
+
 	public Screening(Date date, Movie movie, Hall hall) {
 		super();
 		this.date = date;
 		this.movie = movie;
 		this.hall = hall;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Date getDate() {
@@ -82,7 +94,7 @@ public class Screening {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof User)) {
+		if (!(obj instanceof Screening)) {
 			return false;
 		}
 		Screening screening = (Screening) obj;

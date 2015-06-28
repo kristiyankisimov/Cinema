@@ -1,5 +1,6 @@
 package com.cinema.utils;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,12 @@ import com.cinema.model.User;
 
 @Stateless
 public class DBUtils {
+	
+	private static Date getDate(int when) {
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, when);
+		return c.getTime();
+	}
 
 	private static User[] USERS = {
 			new User("test1", "Ivan1", "ivan1@haker.bg", Boolean.TRUE, "123456"),
@@ -67,9 +74,10 @@ public class DBUtils {
 	}
 	
 	private static Screening[] SCREENING = {
-		new Screening(new Date(), MOVIES[0], HALLS[0]),
-		new Screening(new Date(), MOVIES[1], HALLS[1]),
-		new Screening(new Date(), MOVIES[3], HALLS[0])
+		new Screening(getDate(-1), MOVIES[0], HALLS[0]),
+		new Screening(getDate(0), MOVIES[1], HALLS[1]),
+		new Screening(getDate(-1), MOVIES[3], HALLS[0]),
+		new Screening(getDate(1), MOVIES[2], HALLS[0])
 
 };
 
