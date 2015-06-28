@@ -12,6 +12,57 @@
 	type="text/javascript"></script>
 
 <script type="text/javascript">
+	$.ajax({
+		url : './../../rest/screenings/current',
+		type : "GET",
+		dataType : "json",
+		success : function(data) {
+			var screening = data.screening;
+			var seats = screening.hall.seats;
+			
+			for (var i = 0; i <= seats.length; i++) {
+				var rowNumber = seats[i].rowNumber;
+				var colNumber = seats[i].colNumber;
+				var isReserved = seats[i].isReserved;
+				
+				if (colNumber === 0) {
+					if (rowNumber === 0) {
+						$('#seats').append(
+								"<div class='emptySpace' style='visibility:hidden'>"
+										+ rowNumber + "</div>");
+					} else {
+						$('#seats').append("<br>");
+						$('#seats').append(
+								"<div class='emptySpace'>" + rowNumber
+										+ "</div>");
+					}
+
+				} else if(rowNumber === 0) {
+					$('#seats').append(
+							"<div class='emptySpace'>" + colNumber
+									+ "</div>");
+				} else {
+					if(isReserved) {
+						$('#seats').append(
+								"<div class='reservedSeat' id='" + rowNumber + "-"
+										+ colNumber
+										+ "'></div>");
+					} else {
+						$('#seats').append(
+								"<div class='seat' id='" + rowNumber + "-"
+										+ colNumber
+										+ "' onclick='reserve(this)'></div>");
+					}
+
+				}
+				
+				
+			}
+				
+
+		}
+	});
+
 	function generate() {
 		$('#reservationScreen').hide();
 		var rols = 15;
@@ -148,7 +199,7 @@
 		<div id="stage">
 			<div id="screen"></div>
 			<div id="seats"></div>
-			<div id="reservationScreen">
+			<!-- <div id="reservationScreen">
 				<p id="beforeMe">Enter your credentials and press 'Submit' to
 					confirm and reserve the seat.</p>
 				<table>
@@ -172,12 +223,12 @@
 				<div id="qrDiv">
 					<div id="qr"></div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</center>
 	<script type="text/javascript">
-		generate();
-		updateSeats();
+/* 		generate();
+		updateSeats(); */
 	</script>
 
 </body>

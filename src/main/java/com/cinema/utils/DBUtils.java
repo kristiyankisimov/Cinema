@@ -32,8 +32,8 @@ public class DBUtils {
 
 	private static List<Seat> generateSeats() {
 		List<Seat> seats = new ArrayList<Seat>();
-		for (int i = 1; i < 21; i++) {
-			for (int j = 1; j < 11; j++) {
+		for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 21; j++) {
 				seats.add(new Seat(i, j, false, new Date()));
 			}
 		}
