@@ -14,11 +14,11 @@ public class ScreeningBean implements Serializable {
 	private Screening screening;
 
 	private Boolean isComing;
-	
+
 	private String formattedDate;
-	
+
 	public ScreeningBean() {
-		
+
 	}
 
 	public ScreeningBean(Screening screening) {

@@ -8,148 +8,105 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
 	type="text/javascript"></script>
 
-<script src="jquery.qrcode-0.7.0/jquery.qrcode-0.7.0.min.js"
-	type="text/javascript"></script>
+<!-- <script src="jquery.qrcode-0.7.0/jquery.qrcode-0.7.0.min.js"
+	type="text/javascript"></script> -->
 
 <script type="text/javascript">
-	$.ajax({
-		url : './../../rest/screenings/current',
-		type : "GET",
-		dataType : "json",
-		success : function(data) {
-			var screening = data.screening;
-			var seats = screening.hall.seats;
-			
-			for (var i = 0; i <= seats.length; i++) {
-				var rowNumber = seats[i].rowNumber;
-				var colNumber = seats[i].colNumber;
-				var isReserved = seats[i].isReserved;
-				
-				if (colNumber === 0) {
-					if (rowNumber === 0) {
-						$('#seats').append(
-								"<div class='emptySpace' style='visibility:hidden'>"
-										+ rowNumber + "</div>");
-					} else {
-						$('#seats').append("<br>");
-						$('#seats').append(
-								"<div class='emptySpace'>" + rowNumber
-										+ "</div>");
-					}
+	var selectedSeats = [];
 
-				} else if(rowNumber === 0) {
-					$('#seats').append(
-							"<div class='emptySpace'>" + colNumber
-									+ "</div>");
-				} else {
-					if(isReserved) {
-						$('#seats').append(
-								"<div class='reservedSeat' id='" + rowNumber + "-"
-										+ colNumber
-										+ "'></div>");
-					} else {
-						$('#seats').append(
-								"<div class='seat' id='" + rowNumber + "-"
-										+ colNumber
-										+ "' onclick='reserve(this)'></div>");
+	$
+			.ajax({
+				url : './../../rest/screenings/current',
+				type : "GET",
+				dataType : "json",
+				success : function(data) {
+					var screening = data.screening;
+					var seats = screening.hall.seats;
+
+					for (var i = 0; i < seats.length; i++) {
+						var seatId = seats[i].id;
+						var rowNumber = seats[i].rowNumber;
+						var colNumber = seats[i].colNumber;
+						var isReserved = seats[i].isReserved;
+
+						if (colNumber === 0) {
+							if (rowNumber === 0) {
+								$('#seats').append(
+										"<div class='emptySpace' style='visibility:hidden'>"
+												+ rowNumber + "</div>");
+							} else {
+								$('#seats').append("<br>");
+								$('#seats').append(
+										"<div class='emptySpace'>" + rowNumber
+												+ "</div>");
+							}
+
+						} else if (rowNumber === 0) {
+							$('#seats').append(
+									"<div class='emptySpace'>" + colNumber
+											+ "</div>");
+						} else {
+							if (isReserved) {
+								$('#seats')
+										.append(
+												"<div class='reservedSeat' id='" + seatId + "'></div>");
+							} else {
+								$('#seats')
+										.append(
+												"<div class='seat' id='"
+														+ seatId
+														+ "' onclick='reserve(this)'></div>");
+							}
+
+						}
+
 					}
 
 				}
-				
-				
-			}
-				
+			});
 
+	function reserve(object) {
+		console.log(object);
+		var seatId = object.id;
+		if ($.inArray(seatId, selectedSeats) === -1) {
+			selectedSeats.push(seatId);
+			$('#' + seatId).addClass('reservedSeat');
+			$('#' + seatId).removeClass('seat');
+		} else {
+			selectedSeats = $.grep(selectedSeats, function(element) {
+				return element !== seatId;
+			});
+			$('#' + seatId).removeClass('reservedSeat');
+			$('#' + seatId).addClass('seat');
 		}
-	});
 
-	function generate() {
-		$('#reservationScreen').hide();
-		var rols = 15;
-		var cols = 24;
-		var cnt = 1;
-		var jj = 1;
+	}
 
-		for (i = 0; i <= rols; i++) {
-			for (j = 0; j <= cols; j++) {
-				if (j % 6 === 0 && j !== 0) {
-					$('#seats').append("<div class='emptySpace'></div>");
+	function buyTickets() {
+		if (selectedSeats.length > 0) {
 
-				} else if (j === 0) {
-					if (i === 0) {
-						$('#seats').append(
-								"<div class='emptySpace' style='visibility:hidden'>"
-										+ i + "</div>");
-					} else {
-						$('#seats').append(
-								"<div class='emptySpace'>" + i + "</div>");
-					}
-
-				} else if (i === 0 && j % 6 !== 0) {
-					$('#seats').append(
-							"<div class='emptySpace'>" + cnt + "</div>");
-					cnt++;
-
-				} else {
-					$('#seats')
-							.append(
-									"<div class='seat' id='"
-											+ i
-											+ "-"
-											+ jj
-											+ "' onclick='show_reservation_screen(this)'></div>");
-					jj++;
-
+			var requestJson = {
+				seatIdsBean : {
+					seatsIds : selectedSeats
 				}
 			}
-			$('#seats').append("<br>");
-			jj = 1;
+
+			$.ajax({
+				url : './../../rest/tickets',
+				type : "POST",
+				contentType : "application/json;charset=UTF-8",
+				data : JSON.stringify(requestJson),
+				statusCode : {
+					200 : function() {
+						$('#congratulations').show();
+					},
+					400 : function() {
+						alert("WENT HORSE INTO THE RIVER!!!");
+					}
+
+				}
+			});
 		}
-	}
-
-	function updateSeats() {
-		$.get('DB.txt', function(myContentFile) {
-			var lines = myContentFile.split("\r\n");
-			myObject = {};
-			for ( var i in lines) {
-				myObject[i] = lines[i]
-				//console.log(lines[i]);
-				document.getElementById(lines[i]).setAttribute("style",
-						"background-color: red;");
-				document.getElementById(lines[i]).setAttribute("onclick", "");
-			}
-		}, 'text');
-	}
-
-	var id;
-	function show_reservation_screen(v) {
-		id = v.id;
-		$("<p>You have chosen seat " + id + "</p>").insertBefore("#beforeMe");
-		$('#seats').fadeOut(1000);
-		setTimeout("$('#reservationScreen').fadeIn('slow')", 1000);
-	}
-
-	function send_request() {
-		var fname = document.getElementById("fname").value;
-		var sname = document.getElementById("sname").value;
-		var gsm = document.getElementById("gsm").value;
-		//alert(fname + " " + sname + " " + gsm + " " + id);
-		$('#qr').qrcode({
-			width : 80,
-			height : 80,
-			color : '#3a3',
-			text : fname + " " + sname + ", " + gsm + ", seat(rol, col): " + id
-		});
-		//var requestData = {
-		//    firstName: fname,
-		//    secondName: sname,
-		//    GSM: gsm,
-		//    seatNo: id
-		//};
-		//alert(JSON.stringify(requestData));
-
-		document.location.href = "Server?param=" + id;
-
 	}
 </script>
 
@@ -199,37 +156,18 @@
 		<div id="stage">
 			<div id="screen"></div>
 			<div id="seats"></div>
-			<!-- <div id="reservationScreen">
-				<p id="beforeMe">Enter your credentials and press 'Submit' to
-					confirm and reserve the seat.</p>
-				<table>
-					<tr>
-						<td>First Name:</td>
-						<td><input type="text" id='fname'></td>
-					</tr>
-					<tr>
-						<td>Last Name:</td>
-						<td><input type="text" id='sname'></td>
-					</tr>
-					<tr>
-						<td>Phone Number:</td>
-						<td><input type="text" id='gsm'></td>
-					</tr>
-					<tr>
-						<td><input type="button" onclick='send_request()'
-							value='Submit'></td>
-					</tr>
-				</table>
-				<div id="qrDiv">
-					<div id="qr"></div>
-				</div>
-			</div> -->
+			<div>
+				<button class="abut" onclick="buyTickets()">Buy</button>
+			</div>
+			<div id="congratulations" style="display: none">
+				<p>
+				<h1>Congrats!!!!!!</h1>
+				</p>
+			</div>
+
 		</div>
+
 	</center>
-	<script type="text/javascript">
-/* 		generate();
-		updateSeats(); */
-	</script>
 
 </body>
 </html>
