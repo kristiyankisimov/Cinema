@@ -32,7 +32,7 @@
 		var row = $("<tr />")
 		$("#screenings_table").append(row);
 		row.append($("<td>" + screeningElement.formattedDate + "</td>"));
-		row.append($('<td><a id="' + rowData.movie.id
+		row.append($('<td><a id="' + rowData.id
 				+ '" onclick="showMovieInformation(this)" href="#">'
 				+ rowData.movie.title + "</a></td>"));
 		row.append($("<td>" + rowData.hall.number + "</td>"));
@@ -41,7 +41,7 @@
 
 		var BookTd = $("<td />");
 		if (screeningElement.isComing) {
-			var link = $('<button onclick="bookATicket()"> Book a Ticket </button>');
+			var link = $('<button id="' + rowData.id + '" onclick="bookATicket(this)"> Book a Ticket </button>');
 			BookTd.append(link);
 		}
 		row.append(BookTd);
@@ -49,14 +49,27 @@
 		row.append($("<td/>"));
 	}
 
-	function bookATicket() {
-		window.location.replace("seat-reservation.html");
+	function bookATicket(object) {
+		
+		$.ajax({
+			url : './../../rest/screenings/' + object.id,
+			type : "POST",
+			contentType : "application/json;charset=UTF-8",
+			statusCode : {
+
+				200 : function() {
+					window.location.replace("seat-reservation.html");
+				}
+
+			}
+		});
+		
 	}
 
 	function showMovieInformation(object) {
 
 		$.ajax({
-			url : './../../rest/movies/' + object.id,
+			url : './../../rest/screenings/' + object.id,
 			type : "POST",
 			contentType : "application/json;charset=UTF-8",
 			statusCode : {

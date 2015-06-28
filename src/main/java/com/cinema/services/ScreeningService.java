@@ -1,6 +1,5 @@
 package com.cinema.services;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,7 +8,9 @@ import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.Response;
 import com.cinema.dao.ScreeningDAO;
 import com.cinema.model.Screening;
 import com.cinema.services.beans.ScreeningBean;
+import com.cinema.services.beans.TicketBean;
 
 @Stateless
 @Path("screenings")
@@ -28,6 +30,9 @@ public class ScreeningService {
 
 	@Inject
 	private ScreeningDAO screeningDAO;
+
+	@Inject
+	private TicketBean ticket;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -57,12 +62,21 @@ public class ScreeningService {
 		return screeningBeans;
 	}
 
+	@POST
+	@Path("{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getScreeningByDate(@PathParam("id") Long id) {
+		Screening screening = screeningDAO.getScreeningById(id);
+		ticket.setScreening(screening);
+
+		return RESPONSE_OK;
+	}
+	
 	@GET
-	@Path("{screeningDate}")
+	@Path("current")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Screening getScreeningByDate(
-			@PathParam("screeningDate") Date screeningDate) {
-		return screeningDAO.getScreeningByDate(screeningDate);
+	public Screening getCurrentMovie() {
+		return ticket.getScreening();
 	}
 
 	private Date today() {

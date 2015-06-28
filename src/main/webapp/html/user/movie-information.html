@@ -9,11 +9,11 @@
 
 <script type="text/javascript">
 	$.ajax({
-		url : './../../rest/movies/current',
+		url : './../../rest/screenings/current',
 		type : "GET",
 		dataType : "json",
 		success : function(data) {
-			var currentMovie = data.movie;
+			var currentMovie = data.screening.movie;
 			$('#title').html(currentMovie.title);
 			var currentMovieDescription = currentMovie.description;
 			$('#description').html(currentMovie.description);

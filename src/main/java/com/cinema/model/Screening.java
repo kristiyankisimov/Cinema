@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({
+		@NamedQuery(name = "getScreeningById", query = "SELECT s FROM Screening s WHERE s.id = :id"),
 		@NamedQuery(name = "getScreeningByDate", query = "SELECT s FROM Screening s WHERE s.date = :date"),
 		@NamedQuery(name = "getScreeningByHall", query = "SELECT s FROM Screening s WHERE s.hall.id = :HALL_ID"),
 		@NamedQuery(name = "getAllScreenings", query = "SELECT s FROM Screening s") })
