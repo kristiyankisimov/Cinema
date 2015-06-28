@@ -17,7 +17,9 @@ import com.cinema.login.services.UserContext;
 import com.cinema.model.User;
 
 @WebFilter(urlPatterns = {"/html/*", "/rest/movies", "/rest/movies/*",
-		"/rest/screenings", "/rest/screenings/*"})
+		"/rest/screenings", "/rest/screenings/*", 
+		"/rest/tickets", "/rest/tickets/*",
+		"/rest/movieInformation"})
 public class ApplicationFilter implements Filter {
 
 	private static final String PATH_LOGIN_PAGE = "/login.html";
