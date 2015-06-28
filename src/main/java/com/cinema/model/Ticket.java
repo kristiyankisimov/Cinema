@@ -35,6 +35,17 @@ public class Ticket {
 
 	private Boolean checked;
 
+	public Ticket() {
+
+	}
+
+	public Ticket(User user, Screening screening, Seat seat, Boolean checked) {
+		this.user = user;
+		this.screening = screening;
+		this.seat = seat;
+		this.checked = checked;
+	}
+
 	public User getUser() {
 		return user;
 	}

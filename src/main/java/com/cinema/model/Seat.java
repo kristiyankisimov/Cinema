@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "getSeatById", query = "SELECT s FROM Seat s WHERE s.id = :id") })
 public class Seat implements Serializable {
 	
 
@@ -25,6 +27,7 @@ public class Seat implements Serializable {
 	private Long id;
 
 	private Integer rowNumber;
+	
 	private Integer colNumber;
 
 	private Boolean isReserved;
