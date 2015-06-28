@@ -24,7 +24,8 @@ public class Seat implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private Integer seatNumber;
+	private Integer rowNumber;
+	private Integer colNumber;
 
 	private Boolean isReserved;
 
@@ -35,15 +36,18 @@ public class Seat implements Serializable {
 
 	}
 
-	public Seat(int seatNumber) {
+	public Seat(int rowNumber,  int colNumber) {
 		this.isReserved = Boolean.FALSE;
-		this.seatNumber = seatNumber;
+		this.rowNumber = rowNumber;
+		this.colNumber = colNumber;
+
 	}
 	
 	
 
-	public Seat(Integer seatNumber, Boolean isReserved, Date reservationTime) {
-		this.seatNumber = seatNumber;
+	public Seat(Integer rowNumber, Integer colNumber, Boolean isReserved, Date reservationTime) {
+		this.rowNumber = rowNumber;
+		this.colNumber = colNumber;
 		this.isReserved = isReserved;
 		this.reservationTime = reservationTime;
 	}
@@ -56,12 +60,20 @@ public class Seat implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getSeatNumber() {
-		return seatNumber;
+	public Integer getRowNumber() {
+		return rowNumber;
 	}
 
-	public void setSeatNumber(Integer seatNumber) {
-		this.seatNumber = seatNumber;
+	public void setRowNumber(Integer rowNumber) {
+		this.rowNumber = rowNumber;
+	}
+	
+	public Integer getColNumber() {
+		return colNumber;
+	}
+
+	public void setColNumber(Integer colNumber) {
+		this.colNumber = colNumber;
 	}
 
 	public Boolean getIsReserved() {
@@ -93,7 +105,7 @@ public class Seat implements Serializable {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof User)) {
+		if (!(obj instanceof Seat)) {
 			return false;
 		}
 		Seat seat = (Seat) obj;
@@ -107,9 +119,11 @@ public class Seat implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Seat [id=" + id + ", seatNumber=" + seatNumber
-				+ ", isReserved=" + isReserved + ", reservationTime="
-				+ reservationTime + "]";
+		return "Seat [id=" + id + ", rowNumber=" + rowNumber + ", colNumber="
+				+ colNumber + ", isReserved=" + isReserved
+				+ ", reservationTime=" + reservationTime + "]";
 	}
+
+	
 
 }

@@ -1,6 +1,7 @@
 package com.cinema.model;
 
-import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -8,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -16,9 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "getAllSeats", query = "SELECT h FROM Hall h") })
-
+@NamedQueries({ @NamedQuery(name = "getAllSeats", query = "SELECT h FROM Hall h") })
 public class Hall {
 
 	@Id
@@ -28,7 +26,7 @@ public class Hall {
 	private Integer number;
 
 	@OneToMany(cascade = CascadeType.PERSIST)
-	private Set<Seat> seats = new HashSet<>();
+	private List<Seat> seats = new ArrayList<>();
 
 	public Hall() {
 
@@ -46,11 +44,11 @@ public class Hall {
 		this.number = number;
 	}
 
-	public Set<Seat> getSeats() {
+	public List<Seat> getSeats() {
 		return seats;
 	}
 
-	public void setSeats(Set<Seat> seats) {
+	public void setSeats(List<Seat> seats) {
 		this.seats = seats;
 	}
 
@@ -84,7 +82,5 @@ public class Hall {
 		return "Hall [id=" + id + ", number=" + number + ", seats=" + seats
 				+ "]";
 	}
-
-	
 
 }

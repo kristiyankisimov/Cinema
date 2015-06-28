@@ -77,7 +77,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   font-weight: inherit;
   font-style: inherit;
   font-family: inherit;
-}
+  }
 div {
   display: block;
 }
@@ -440,13 +440,15 @@ h6 {
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
+  font-size: 20px;
 }
 h1, h2, h4, .h4, h5, .h5, h6, .h6 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 h6, .h6 {
-  font-size: 12px;
+
+  font-size: 20px;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', Arial, sans-serif;
