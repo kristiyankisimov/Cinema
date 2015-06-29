@@ -66,9 +66,42 @@
 			});
 
 	function reserve(object) {
-		console.log(object);
 		var seatId = object.id;
-		if ($.inArray(seatId, selectedSeats) === -1) {
+		
+		var seatJson = {
+				seat : {
+					id : object.id;
+				}
+		}
+		
+		$.ajax({
+			url : './../../rest/tickets/reserveSeat',
+			type : "POST",
+			contentType : "application/json;charset=UTF-8",
+			data : JSON.stringify(seatJson),
+			statusCode : {
+				200 : function() {
+					if ($.inArray(seatId, selectedSeats) === -1) {
+						selectedSeats.push(seatId);
+						$('#' + seatId).addClass('reservedSeat');
+						$('#' + seatId).removeClass('seat');
+					} else {
+						selectedSeats = $.grep(selectedSeats, function(element) {
+							return element !== seatId;
+						});
+						$('#' + seatId).removeClass('reservedSeat');
+						$('#' + seatId).addClass('seat');
+					}
+				},
+				400 : function() {
+					window.loacation.replace("seat-reservation.html");
+				}
+
+			}
+		});
+		
+		
+		/* if ($.inArray(seatId, selectedSeats) === -1) {
 			selectedSeats.push(seatId);
 			$('#' + seatId).addClass('reservedSeat');
 			$('#' + seatId).removeClass('seat');
@@ -78,7 +111,7 @@
 			});
 			$('#' + seatId).removeClass('reservedSeat');
 			$('#' + seatId).addClass('seat');
-		}
+		} */
 
 	}
 
@@ -101,7 +134,12 @@
 						$('#congratulations').show();
 					},
 					400 : function() {
-						alert("WENT HORSE INTO THE RIVER!!!");
+						for(var i = 0; i < seatsIds; i++) {
+							$('#' + seatsIds[i]).removeClass('reservedSeat');
+							$('#' + seatsIds[i]).addClass('seat');
+						}
+						
+						alert("You have been waiting more than 10 minutes before buying tickets. Please try againg.");
 					}
 
 				}

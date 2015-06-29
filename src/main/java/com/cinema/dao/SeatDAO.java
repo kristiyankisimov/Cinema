@@ -10,14 +10,17 @@ import com.cinema.model.Seat;
 
 @Singleton
 public class SeatDAO {
-	
+
 	@PersistenceContext
 	private EntityManager em;
-	
-	
+
+	public void addSeat(Seat seat) {
+		em.persist(seat);
+	}
+
 	public Seat getSeatById(Long id) {
-		TypedQuery<Seat> query = em.createNamedQuery("getSeatById",
-				Seat.class).setParameter("id", id);
+		TypedQuery<Seat> query = em.createNamedQuery("getSeatById", Seat.class)
+				.setParameter("id", id);
 
 		return queryMovie(query);
 	}

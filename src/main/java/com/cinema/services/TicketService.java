@@ -58,7 +58,7 @@ public class TicketService {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getScreeningByDate(SeatIdsBean bean) {
+	public synchronized Response buyTickets(SeatIdsBean bean) {
 
 		List<Long> seatsIds = bean.getSeatsIds();
 		
@@ -72,11 +72,11 @@ public class TicketService {
 			ticket.setUser(context.getCurrentUser());
 
 			Seat seat = seatDAO.getSeatById(seatsIds.get(i));
-			if(seat.getIsReserved()) {
+			Date now = new Date();
+			if(now.getTime() - seat.getReservationTime().getTime() >= 10*60*1000) {
+				freeAllSeats(seatsIds);
 				return RESPOMSE_NOT_OK;
 			}
-			seat.setIsReserved(true);
-			seat.setReservationTime(new Date());
 
 			ticket.setSeat(seat);
 			ticket.setChecked(false);
@@ -109,6 +109,27 @@ public class TicketService {
 		}
 		
 		return historyTickets;
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response reserveSeat(Seat seat) {
+		Seat currentSeat = seatDAO.getSeatById(seat.getId());
+		if(currentSeat == null) {
+			return RESPOMSE_NOT_OK;
+		}
+		currentSeat.setIsReserved(true);
+		currentSeat.setReservationTime(new Date());
+		
+		return RESPONSE_OK;
+	}
+	
+	private void freeAllSeats(List<Long> seatIds) {
+		for(Long id : seatIds) {
+			Seat seat = seatDAO.getSeatById(id);
+			seat.setIsReserved(false);
+			seat.setReservationTime(null);
+		}
 	}
 	
 	private void persistAllTickets(List<Ticket> tickets) {

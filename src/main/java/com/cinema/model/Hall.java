@@ -1,17 +1,11 @@
 package com.cinema.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -25,8 +19,8 @@ public class Hall {
 
 	private Integer number;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Seat> seats = new ArrayList<>();
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	private List<Seat> seats = new ArrayList<>();
 
 	public Hall() {
 
@@ -44,13 +38,13 @@ public class Hall {
 		this.number = number;
 	}
 
-	public List<Seat> getSeats() {
-		return seats;
-	}
-
-	public void setSeats(List<Seat> seats) {
-		this.seats = seats;
-	}
+//	public List<Seat> getSeats() {
+//		return seats;
+//	}
+//
+//	public void setSeats(List<Seat> seats) {
+//		this.seats = seats;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -65,7 +59,7 @@ public class Hall {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof User)) {
+		if (!(obj instanceof Hall)) {
 			return false;
 		}
 		Hall hall = (Hall) obj;
@@ -79,8 +73,9 @@ public class Hall {
 
 	@Override
 	public String toString() {
-		return "Hall [id=" + id + ", number=" + number + ", seats=" + seats
-				+ "]";
+		return "Hall [id=" + id + ", number=" + number + "]";
 	}
+
+	
 
 }

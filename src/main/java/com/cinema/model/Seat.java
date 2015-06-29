@@ -31,6 +31,8 @@ public class Seat implements Serializable {
 	private Integer colNumber;
 
 	private Boolean isReserved;
+	
+	//private Long screeningId;
 
 	@Temporal(TemporalType.DATE)
 	private Date reservationTime;
@@ -46,13 +48,12 @@ public class Seat implements Serializable {
 
 	}
 	
-	
-
 	public Seat(Integer rowNumber, Integer colNumber, Boolean isReserved, Date reservationTime) {
 		this.rowNumber = rowNumber;
 		this.colNumber = colNumber;
 		this.isReserved = isReserved;
 		this.reservationTime = reservationTime;
+		//this.screeningId = screeningId;
 	}
 
 	public Long getId() {
@@ -94,6 +95,14 @@ public class Seat implements Serializable {
 	public void setReservationTime(Date reservationTime) {
 		this.reservationTime = reservationTime;
 	}
+
+//	public Long getScreeningId() {
+//		return screeningId;
+//	}
+//
+//	public void setScreeningId(Long screeningId) {
+//		this.screeningId = screeningId;
+//	}
 
 	@Override
 	public int hashCode() {

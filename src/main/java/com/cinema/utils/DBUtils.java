@@ -34,7 +34,7 @@ public class DBUtils {
 		List<Seat> seats = new ArrayList<Seat>();
 		for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 21; j++) {
-				seats.add(new Seat(i, j, false, new Date()));
+				seats.add(new Seat(i, j, false, null));
 			}
 		}
 		return seats;
@@ -59,35 +59,18 @@ public class DBUtils {
 
 	new Hall(1), new Hall(2) };
 
-	private static List<Seat> seat2 = new ArrayList<>(generateSeats());
-	// static {
-	// seat2.add(new Seat(1, 1, true, new Date()));
-	// seat2.add(new Seat(1, 2, false, new Date()));
-	// seat2.add(new Seat(3, 20, true, new Date()));
-	// seat2.add(new Seat(10, 20, false, new Date()));
-	// seat2.add(new Seat(9, 18, true, new Date()));
-	// }
 
 	private static List<Seat> seat1 = new ArrayList<>(generateSeats());
-	// static {
-	// seat1.add(new Seat(1, true, new Date()));
-	// seat1.add(new Seat(2, false, new Date()));
-	// seat1.add(new Seat(3, true, new Date()));
-	// seat1.add(new Seat(4, false, new Date()));
-	// seat1.add(new Seat(5, true, new Date()));
-	// }
+	private static List<Seat> seat2 = new ArrayList<>(generateSeats());
+	private static List<Seat> seat3 = new ArrayList<>(generateSeats());
+	private static List<Seat> seat4 = new ArrayList<>(generateSeats());
 
-	static {
-
-		HALLS[0].setSeats(seat1);
-		HALLS[1].setSeats(seat2);
-	}
 
 	private static Screening[] SCREENING = {
-			new Screening(getDate(-1), MOVIES[0], HALLS[0]),
-			new Screening(getDate(0), MOVIES[1], HALLS[1]),
-			new Screening(getDate(-1), MOVIES[3], HALLS[0]),
-			new Screening(getDate(1), MOVIES[2], HALLS[0])
+			new Screening(getDate(-1), MOVIES[0], HALLS[0], seat1),
+			new Screening(getDate(0), MOVIES[1], HALLS[1], seat2),
+			new Screening(getDate(-1), MOVIES[3], HALLS[0], seat3),
+			new Screening(getDate(1), MOVIES[2], HALLS[0], seat4)
 
 	};
 
