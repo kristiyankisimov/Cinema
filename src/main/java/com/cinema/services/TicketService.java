@@ -22,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlElement;
 
+import com.cinema.dao.ScreeningDAO;
 import com.cinema.dao.SeatDAO;
 import com.cinema.dao.TicketDAO;
 import com.cinema.login.services.UserContext;
@@ -51,6 +52,9 @@ public class TicketService {
 
 	@Inject
 	private SeatDAO seatDAO;
+	
+	@Inject
+	private ScreeningDAO screeningDAO;
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -80,6 +84,9 @@ public class TicketService {
 		}
 		
 		persistAllTickets(tickets);
+		
+		Screening updatedScreening = screeningDAO.getScreeningById(screening.getId());
+		ticketBean.setScreening(updatedScreening);
 		
 		return RESPONSE_OK;
 	}
