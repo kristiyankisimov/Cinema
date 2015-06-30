@@ -41,7 +41,7 @@
 
 		var BookTd = $("<td />");
 		if (screeningElement.isComing) {
-			var link = $('<button id="' + rowData.id + '" onclick="bookATicket(this)"> Book a Ticket </button>');
+			var link = $('<button class = "btn btn-default" id="' + rowData.id + '" onclick="bookATicket(this)"> Book a Ticket </button>');
 			BookTd.append(link);
 		}
 		row.append(BookTd);
