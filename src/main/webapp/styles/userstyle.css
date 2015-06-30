@@ -103,7 +103,7 @@ ul#nav {
 	margin: auto;
 	padding: 0;
 	list-style: none;
-	background: purple;
+	background: #006699;
 	height: 38px;
 	clear: both;
 	border-radius: 4px;
@@ -146,15 +146,6 @@ li {
 	text-align: -webkit-match-parent;
 }
 
-ul#nav {
-	width: 960px;
-	margin: auto;
-	padding: 0;
-	list-style: none;
-	background: purple;
-	height: 38px;
-	clear: both;
-}
 
 ol, ul {
 	margin: 0;
