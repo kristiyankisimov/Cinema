@@ -8,25 +8,19 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.faces.application.Application;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.annotation.XmlElement;
 
 import com.cinema.dao.ScreeningDAO;
 import com.cinema.dao.SeatDAO;
 import com.cinema.dao.TicketDAO;
 import com.cinema.login.services.UserContext;
-import com.cinema.model.Movie;
 import com.cinema.model.Screening;
 import com.cinema.model.Seat;
 import com.cinema.model.Ticket;
@@ -112,6 +106,7 @@ public class TicketService {
 	}
 	
 	@POST
+	@Path("reserveSeat")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response reserveSeat(Seat seat) {
 		Seat currentSeat = seatDAO.getSeatById(seat.getId());
@@ -120,6 +115,20 @@ public class TicketService {
 		}
 		currentSeat.setIsReserved(true);
 		currentSeat.setReservationTime(new Date());
+		
+		return RESPONSE_OK;
+	}
+	
+	@POST
+	@Path("freeSeat")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response freeSeat(Seat seat) {
+		Seat currentSeat = seatDAO.getSeatById(seat.getId());
+		if(currentSeat == null) {
+			return RESPOMSE_NOT_OK;
+		}
+		currentSeat.setIsReserved(false);
+		currentSeat.setReservationTime(null);
 		
 		return RESPONSE_OK;
 	}

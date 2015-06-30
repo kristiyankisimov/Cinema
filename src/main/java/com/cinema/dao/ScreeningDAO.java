@@ -4,15 +4,10 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.Singleton;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.xml.bind.annotation.XmlRootElement;
 
-import com.cinema.model.Movie;
 import com.cinema.model.Screening;
 
 @Singleton

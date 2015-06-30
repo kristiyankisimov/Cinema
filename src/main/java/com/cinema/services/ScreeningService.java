@@ -76,7 +76,10 @@ public class ScreeningService {
 	@Path("current")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Screening getCurrentMovie() {
-		return ticket.getScreening();
+		Screening screening = ticket.getScreening();
+		Screening updatedScreening = screeningDAO.getScreeningById(screening.getId());
+		ticket.setScreening(updatedScreening);
+		return updatedScreening;
 	}
 
 	private Date today() {
