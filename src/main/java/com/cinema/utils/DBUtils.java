@@ -22,10 +22,10 @@ import com.cinema.model.User;
 @Stateless
 public class DBUtils {
 
-	private static Date getDate(int when) {
+	private static Calendar getDate(int when) {
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DATE, when);
-		return c.getTime();
+		return c;
 	}
 
 	private static List<Seat> generateSeats() {

@@ -1,6 +1,7 @@
 package com.cinema.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -32,10 +33,8 @@ public class Seat implements Serializable {
 
 	private Boolean isReserved;
 	
-	//private Long screeningId;
-
-	@Temporal(TemporalType.DATE)
-	private Date reservationTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar reservationTime;
 
 	public Seat() {
 
@@ -48,12 +47,11 @@ public class Seat implements Serializable {
 
 	}
 	
-	public Seat(Integer rowNumber, Integer colNumber, Boolean isReserved, Date reservationTime) {
+	public Seat(Integer rowNumber, Integer colNumber, Boolean isReserved, Calendar reservationTime) {
 		this.rowNumber = rowNumber;
 		this.colNumber = colNumber;
 		this.isReserved = isReserved;
 		this.reservationTime = reservationTime;
-		//this.screeningId = screeningId;
 	}
 
 	public Long getId() {
@@ -88,21 +86,13 @@ public class Seat implements Serializable {
 		this.isReserved = isReserved;
 	}
 
-	public Date getReservationTime() {
+	public Calendar getReservationTime() {
 		return reservationTime;
 	}
 
-	public void setReservationTime(Date reservationTime) {
+	public void setReservationTime(Calendar reservationTime) {
 		this.reservationTime = reservationTime;
 	}
-
-//	public Long getScreeningId() {
-//		return screeningId;
-//	}
-//
-//	public void setScreeningId(Long screeningId) {
-//		this.screeningId = screeningId;
-//	}
 
 	@Override
 	public int hashCode() {

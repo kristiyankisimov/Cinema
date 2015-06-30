@@ -19,9 +19,6 @@ public class Hall {
 
 	private Integer number;
 
-//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	private List<Seat> seats = new ArrayList<>();
-
 	public Hall() {
 
 	}
@@ -37,14 +34,6 @@ public class Hall {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-
-//	public List<Seat> getSeats() {
-//		return seats;
-//	}
-//
-//	public void setSeats(List<Seat> seats) {
-//		this.seats = seats;
-//	}
 
 	@Override
 	public int hashCode() {
@@ -75,7 +64,5 @@ public class Hall {
 	public String toString() {
 		return "Hall [id=" + id + ", number=" + number + "]";
 	}
-
-	
 
 }

@@ -3,6 +3,7 @@ package com.cinema.services;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -66,8 +67,8 @@ public class TicketService {
 			ticket.setUser(context.getCurrentUser());
 
 			Seat seat = seatDAO.getSeatById(seatsIds.get(i));
-			Date now = new Date();
-			if(now.getTime() - seat.getReservationTime().getTime() >= 10*60*1000) {
+			Calendar now = Calendar.getInstance();
+			if(now.get(Calendar.MINUTE) - seat.getReservationTime().get(Calendar.MINUTE) >= 10) {
 				freeAllSeats(seatsIds);
 				return RESPOMSE_NOT_OK;
 			}
@@ -114,7 +115,7 @@ public class TicketService {
 			return RESPOMSE_NOT_OK;
 		}
 		currentSeat.setIsReserved(true);
-		currentSeat.setReservationTime(new Date());
+		currentSeat.setReservationTime(Calendar.getInstance());
 		
 		return RESPONSE_OK;
 	}
@@ -147,10 +148,10 @@ public class TicketService {
 		}
 	}
 	
-	private String formatDate(Date date) {
+	private String formatDate(Calendar date) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
 
-		return dateFormat.format(date);
+		return dateFormat.format(date.getTime());
 
 	}
 }

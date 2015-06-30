@@ -43,12 +43,12 @@ public class ScreeningService {
 		Collection<ScreeningBean> screeningBeans = new ArrayList<>();
 
 		for (Screening screening : screenings) {
-			Date screenigTime = screening.getDate();
+			Calendar screenigTime = screening.getDate();
 			if (screenigTime.after(today())) {
 
 				ScreeningBean screeningBean = new ScreeningBean(screening);
 
-				if (screenigTime.after(new Date())) {
+				if (screenigTime.after(Calendar.getInstance())) {
 					screeningBean.setIsComing(Boolean.TRUE);
 				}
 
@@ -82,20 +82,19 @@ public class ScreeningService {
 		return updatedScreening;
 	}
 
-	private Date today() {
-		Calendar callendar = Calendar.getInstance();
+	private Calendar today() {
+		Calendar calendar = Calendar.getInstance();
 
-		callendar.set(Calendar.HOUR, 0);
-		callendar.set(Calendar.MINUTE, 0);
-		callendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
 
-		return callendar.getTime();
+		return calendar;
 	}
 
-	private String formatDate(Date date) {
+	private String formatDate(Calendar date) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
-
-		return dateFormat.format(date);
+		return dateFormat.format(date.getTime());
 
 	}
 

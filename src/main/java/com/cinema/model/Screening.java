@@ -2,6 +2,7 @@ package com.cinema.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,8 +35,8 @@ public class Screening implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Temporal(TemporalType.DATE)
-	private Date date;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar date;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Movie movie;
@@ -50,7 +51,7 @@ public class Screening implements Serializable {
 
 	}
 
-	public Screening(Date date, Movie movie, Hall hall, List<Seat> seats) {
+	public Screening(Calendar date, Movie movie, Hall hall, List<Seat> seats) {
 		super();
 		this.date = date;
 		this.movie = movie;
@@ -66,11 +67,11 @@ public class Screening implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 
