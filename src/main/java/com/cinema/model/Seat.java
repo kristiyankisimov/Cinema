@@ -51,6 +51,14 @@ public class Seat implements Serializable {
 		this.reservationStatus = reservationStatus;
 		this.reservationTime = reservationTime;
 	}
+	
+	public Seat(Integer rowNumber, Integer colNumber, Calendar reservationTime) {
+		this.rowNumber = rowNumber;
+		this.colNumber = colNumber;
+		this.reservationTime = reservationTime;
+	}
+	
+	
 
 	public Long getId() {
 		return id;

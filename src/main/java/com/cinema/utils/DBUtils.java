@@ -17,6 +17,7 @@ import com.cinema.model.Hall;
 import com.cinema.model.Movie;
 import com.cinema.model.Screening;
 import com.cinema.model.Seat;
+import com.cinema.model.Ticket;
 import com.cinema.model.User;
 
 @Stateless
@@ -71,6 +72,17 @@ public class DBUtils {
 			new Screening(getDate(1), MOVIES[2], HALLS[0], seat4)
 
 	};
+	
+	private static Ticket[] TICKETS = {
+			new Ticket(USERS[1], SCREENING[0],
+					new Seat(6, 6, Calendar.getInstance()), false),
+			new Ticket(USERS[2], SCREENING[1],
+					new Seat(2, 2, Calendar.getInstance()), false),
+			new Ticket(USERS[2], SCREENING[3],
+					new Seat(3, 3, Calendar.getInstance()), false) ,
+			new Ticket(USERS[1], SCREENING[3],
+					new Seat(4, 7, Calendar.getInstance()), false) };
+
 
 	@PersistenceContext
 	private EntityManager em;
@@ -83,12 +95,16 @@ public class DBUtils {
 
 	@EJB
 	private ScreeningDAO screeningDAO;
+	
+	@EJB
+	private ScreeningDAO ticketDAO;
 
 	public void addTestDataToDB() {
 		deleteData();
 		addTestUsers();
-		// addTestMovies();
+		addTestMovies();
 		addTestScreening();
+		addTestTickets();
 	}
 
 	private void deleteData() {
@@ -106,15 +122,20 @@ public class DBUtils {
 		}
 	}
 
-//	private void addTestMovies() {
-//		for (Movie movie : MOVIES) {
-//			movieDAO.addMovie(movie);
-//		}
-//	}
+	private void addTestMovies() {
+		for (Movie movie : MOVIES) {
+			movieDAO.addMovie(movie);
+		}
+	}
 
 	private void addTestScreening() {
 		for (Screening screening : SCREENING) {
 			screeningDAO.addScreening(screening);
+		}
+	}
+	private void addTestTickets() {
+		for (Ticket ticket : TICKETS) {
+			ticketDAO.addTicket(ticket);
 		}
 	}
 

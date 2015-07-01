@@ -13,6 +13,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -152,11 +153,35 @@ public class TicketService {
 			ticketDAO.addTicket(ticket);
 		}
 	}
+	
+	@POST
+	@Path("{ticketId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getMovieById(@PathParam("ticketId") String ticketId) {
+		Ticket chosenMovie = ticketDAO.getTicketById(Long.parseLong(ticketId));
+		
+		chosenMovie.setChecked(true);
+		return RESPONSE_OK;
+	}
+	
+	@GET
+	@Path("{Id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Ticket> getMovieByScreeningIdd(@PathParam("Id") Long Id) {
+		return ticketDAO.getTicketsByScreeningId(Id);
+	}
+	
 
 	private String formatDate(Calendar date) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
 		return dateFormat.format(date.getTime());
 
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Ticket> getAllTicketss() {
+		return ticketDAO.getAllTickets();
 	}
 
 	private boolean inTime(Calendar from, Calendar to) {

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -38,6 +39,13 @@ public class ScreeningService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Screening> getAllTicketss() {
+		return screeningDAO.getAllScreenings();
+	}
+	
+	@GET
+	@Path("a")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<ScreeningBean> getAllScreenings() {
 
 		Collection<Screening> screenings = screeningDAO.getAllScreenings();
@@ -63,6 +71,7 @@ public class ScreeningService {
 
 		return screeningBeans;
 	}
+	
 
 	@POST
 	@Path("{id}")
@@ -73,6 +82,8 @@ public class ScreeningService {
 
 		return RESPONSE_OK;
 	}
+
+	
 
 	@GET
 	@Path("current")
