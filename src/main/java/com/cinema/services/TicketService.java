@@ -70,14 +70,9 @@ public class TicketService {
 			ticket.setUser(context.getCurrentUser());
 
 			Seat seat = seatDAO.getSeatById(seatsIds.get(i));
-<<<<<<< HEAD
-			Date now = new Date();
-			if (now.getTime() - seat.getReservationTime().getTime() >= 10 * 60 * 1000) {
-=======
 			Calendar now = Calendar.getInstance();
 			boolean isInTime = inTime(now, seat.getReservationTime());
 			if (!isInTime) {
->>>>>>> origin/master
 				freeAllSeats(seatsIds);
 				return RESPOMSE_NOT_OK;
 			}
@@ -126,13 +121,8 @@ public class TicketService {
 		if (currentSeat == null) {
 			return RESPOMSE_NOT_OK;
 		}
-<<<<<<< HEAD
-		currentSeat.setIsReserved(true);
-		currentSeat.setReservationTime(new Date());
-=======
 		currentSeat.setReservationStatus(CinemaUtils.IN_PROCESS);
 		currentSeat.setReservationTime(Calendar.getInstance());
->>>>>>> origin/master
 
 		return RESPONSE_OK;
 	}
@@ -164,36 +154,30 @@ public class TicketService {
 			ticketDAO.addTicket(ticket);
 		}
 	}
-<<<<<<< HEAD
 
-	private String formatDate(Date date) {
-=======
-	
 	@POST
 	@Path("{ticketId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getMovieById(@PathParam("ticketId") String ticketId) {
 		Ticket chosenMovie = ticketDAO.getTicketById(Long.parseLong(ticketId));
-		
+
 		chosenMovie.setChecked(true);
 		return RESPONSE_OK;
 	}
-	
+
 	@GET
 	@Path("{Id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Ticket> getMovieByScreeningIdd(@PathParam("Id") Long Id) {
 		return ticketDAO.getTicketsByScreeningId(Id);
 	}
-	
 
 	private String formatDate(Calendar date) {
->>>>>>> origin/master
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
 		return dateFormat.format(date.getTime());
 
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Ticket> getAllTicketss() {
@@ -201,12 +185,11 @@ public class TicketService {
 	}
 
 	private boolean inTime(Calendar from, Calendar to) {
-		if(to != null) {
+		if (to != null) {
 			return from.get(Calendar.MINUTE) - to.get(Calendar.MINUTE) <= CinemaUtils.SEAT_RESERVATION_TIME;
-		} 
+		}
 		return true;
 	}
-<<<<<<< HEAD
 
 	@GET
 	@Path("{userName}")
@@ -228,6 +211,5 @@ public class TicketService {
 		currentTicket.setChecked(true);
 		return RESPONSE_OK;
 	}
-=======
->>>>>>> origin/master
+
 }

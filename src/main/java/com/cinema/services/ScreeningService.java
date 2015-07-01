@@ -39,13 +39,6 @@ public class ScreeningService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Screening> getAllTicketss() {
-		return screeningDAO.getAllScreenings();
-	}
-	
-	@GET
-	@Path("a")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<ScreeningBean> getAllScreenings() {
 
 		Collection<Screening> screenings = screeningDAO.getAllScreenings();
@@ -71,23 +64,17 @@ public class ScreeningService {
 
 		return screeningBeans;
 	}
-	
 
 	@POST
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getScreeningByDate(@PathParam("id") Long id) {
+	public Response setSelectedScreening(@PathParam("id") Long id) {
 		Screening screening = screeningDAO.getScreeningById(id);
 		ticket.setScreening(screening);
 
 		return RESPONSE_OK;
 	}
 
-<<<<<<< HEAD
-=======
-	
-
->>>>>>> origin/master
 	@GET
 	@Path("current")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -95,10 +82,9 @@ public class ScreeningService {
 		Screening screening = ticket.getScreening();
 		Screening updatedScreening = screeningDAO.getScreeningById(screening
 				.getId());
-<<<<<<< HEAD
-=======
+
 		updateSeatsStatus(updatedScreening.getSeats());
->>>>>>> origin/master
+
 		ticket.setScreening(updatedScreening);
 		return updatedScreening;
 	}
@@ -132,9 +118,9 @@ public class ScreeningService {
 	}
 
 	private boolean inTime(Calendar from, Calendar to) {
-		if(to != null) {
+		if (to != null) {
 			return from.get(Calendar.MINUTE) - to.get(Calendar.MINUTE) <= CinemaUtils.SEAT_RESERVATION_TIME;
-		} 
+		}
 		return true;
 	}
 }
