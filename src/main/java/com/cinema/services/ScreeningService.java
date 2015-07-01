@@ -39,7 +39,7 @@ public class ScreeningService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<ScreeningBean> getAllScreenings() {
+	public Collection<ScreeningBean> getAllFormattedScreenings() {
 
 		Collection<Screening> screenings = screeningDAO.getAllScreenings();
 
@@ -63,6 +63,13 @@ public class ScreeningService {
 		}
 
 		return screeningBeans;
+	}
+	
+	@GET
+	@Path("allScreenings")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Screening> getAllScreenings() {
+		return screeningDAO.getAllScreenings();
 	}
 
 	@POST

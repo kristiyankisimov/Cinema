@@ -34,12 +34,11 @@
 			}
 		});
 		$.ajax({
-			url : './../../rest/screenings',
+			url : './../../rest/screenings/allScreenings',
 			type : "GET",
 			contentType : "application/json;charset=UTF-8",
 			statusCode : {
 				200 : function(data) {
-					alert("ASD");
 					var screenings = data.screening;
 					for (var i = 0; i < screenings.length; i++) {
 						var screening = screenings[i];
