@@ -47,10 +47,10 @@ public class DBUtils {
 			new User("test4", "Ivan4", "ivan4@haker.bg", Boolean.FALSE,
 					"123456") };
 
-	private static Movie[] MOVIES = { new Movie("aaa", "bdfgdfgdfg", 12, 1.0),
-			new Movie("kdfjg", "bd", 12, 5.0),
-			new Movie(".lghk;fh", "dgff", 12, 6.0),
-			new Movie("a;odfgd;gkaa", "sdf", 12, 4.3)
+	private static Movie[] MOVIES = { new Movie("Tommorowland", "Tommorowland is a 2015 American science-fiction mystery. ", 60, 8.0),
+			new Movie("San Andreas", "San Andreas is a 2015 American 3D disaster film directed by Brad Peyton. The film stars an ensemble cast.", 80, 10.0),
+			new Movie("Harry Potter", "Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling.", 120, 16.0),
+			new Movie("White Fang", "White Fang is a novel by American author Jack London (1876–1916) — and the name of the book's eponymous character, a wild wolfdog.", 100, 14.3)
 
 	};
 	private static Hall[] HALLS = {
