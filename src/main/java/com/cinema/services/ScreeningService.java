@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,8 +20,10 @@ import javax.ws.rs.core.Response;
 
 import com.cinema.dao.ScreeningDAO;
 import com.cinema.model.Screening;
+import com.cinema.model.Seat;
 import com.cinema.services.beans.ScreeningBean;
 import com.cinema.services.beans.TicketBean;
+import com.cinema.utils.CinemaUtils;
 
 @Stateless
 @Path("screenings")
@@ -36,6 +39,13 @@ public class ScreeningService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Screening> getAllTicketss() {
+		return screeningDAO.getAllScreenings();
+	}
+	
+	@GET
+	@Path("a")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<ScreeningBean> getAllScreenings() {
 
 		Collection<Screening> screenings = screeningDAO.getAllScreenings();
@@ -43,12 +53,12 @@ public class ScreeningService {
 		Collection<ScreeningBean> screeningBeans = new ArrayList<>();
 
 		for (Screening screening : screenings) {
-			Date screenigTime = screening.getDate();
+			Calendar screenigTime = screening.getDate();
 			if (screenigTime.after(today())) {
 
 				ScreeningBean screeningBean = new ScreeningBean(screening);
 
-				if (screenigTime.after(new Date())) {
+				if (screenigTime.after(Calendar.getInstance())) {
 					screeningBean.setIsComing(Boolean.TRUE);
 				}
 
@@ -61,6 +71,7 @@ public class ScreeningService {
 
 		return screeningBeans;
 	}
+	
 
 	@POST
 	@Path("{id}")
@@ -72,6 +83,11 @@ public class ScreeningService {
 		return RESPONSE_OK;
 	}
 
+<<<<<<< HEAD
+=======
+	
+
+>>>>>>> origin/master
 	@GET
 	@Path("current")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -79,24 +95,46 @@ public class ScreeningService {
 		Screening screening = ticket.getScreening();
 		Screening updatedScreening = screeningDAO.getScreeningById(screening
 				.getId());
+<<<<<<< HEAD
+=======
+		updateSeatsStatus(updatedScreening.getSeats());
+>>>>>>> origin/master
 		ticket.setScreening(updatedScreening);
 		return updatedScreening;
 	}
 
-	private Date today() {
-		Calendar callendar = Calendar.getInstance();
+	private Calendar today() {
+		Calendar calendar = Calendar.getInstance();
 
-		callendar.set(Calendar.HOUR, 0);
-		callendar.set(Calendar.MINUTE, 0);
-		callendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
 
-		return callendar.getTime();
+		return calendar;
 	}
 
-	private String formatDate(Date date) {
+	private String formatDate(Calendar date) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
+		return dateFormat.format(date.getTime());
 
-		return dateFormat.format(date);
+	}
 
+	private void updateSeatsStatus(List<Seat> seats) {
+		for (Seat seat : seats) {
+			Calendar now = Calendar.getInstance();
+			boolean isInTime = inTime(now, seat.getReservationTime());
+			if (seat.getReservationStatus() == CinemaUtils.IN_PROCESS
+					&& !isInTime) {
+				seat.setReservationStatus(CinemaUtils.FREE);
+				seat.setReservationTime(null);
+			}
+		}
+	}
+
+	private boolean inTime(Calendar from, Calendar to) {
+		if(to != null) {
+			return from.get(Calendar.MINUTE) - to.get(Calendar.MINUTE) <= CinemaUtils.SEAT_RESERVATION_TIME;
+		} 
+		return true;
 	}
 }

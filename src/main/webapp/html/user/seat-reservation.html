@@ -9,6 +9,19 @@
 <script type="text/javascript" src="./../../js/jquery-2.1.3.min.js"></script>
 
 <script type="text/javascript">
+	$(document).ready(function() {
+		$.ajax({
+			url : './../../rest/user/current',
+			type : "GET",
+			dataType : "text"
+		}).always(function(data) {
+			if (typeof data != 'undefined') {
+				$("#user-holder").html(data);
+			} else {
+				$(".welcome-greeting").hide();
+			}
+		});
+	});
 	var selectedSeats = [];
 
 	$
@@ -24,7 +37,7 @@
 						var seatId = seats[i].id;
 						var rowNumber = seats[i].rowNumber;
 						var colNumber = seats[i].colNumber;
-						var isReserved = seats[i].isReserved;
+						var reservationStatus = seats[i].reservationStatus;
 
 						if (colNumber === 0) {
 							if (rowNumber === 0) {
@@ -43,7 +56,8 @@
 									"<div class='emptySpace'>" + colNumber
 											+ "</div>");
 						} else {
-							if (isReserved) {
+							if (reservationStatus == 1
+									|| reservationStatus == 2) {
 								$('#seats')
 										.append(
 												"<div class='reservedSeat' id='" + seatId + "'></div>");
@@ -160,7 +174,10 @@
 <body>
 
 	<div id="masthead">
-
+		<div class="welcome-greeting">
+			<h7>User: <span id="user-holder"></h7>
+			</span>
+		</div>
 		<h1>
 			<br> Cinema web app!
 		</h1>
@@ -199,10 +216,12 @@
 	</div>
 	<center>
 		<div id="stage">
+			<h2>Screen</h2>
+			<br>
 			<div id="screen"></div>
 			<div id="seats"></div>
 			<div>
-				<button class="abut" onclick="buyTickets()">Buy</button>
+				<button class="btn btn-default" onclick="buyTickets()">Buy</button>
 			</div>
 			<div id="congratulations" style="display: none">
 				<p>

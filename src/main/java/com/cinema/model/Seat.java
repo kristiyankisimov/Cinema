@@ -1,7 +1,7 @@
 package com.cinema.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +15,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "getSeatById", query = "SELECT s FROM Seat s WHERE s.id = :id") })
+@NamedQueries({ @NamedQuery(name = "getSeatById", query = "SELECT s FROM Seat s WHERE s.id = :id") })
 public class Seat implements Serializable {
-	
 
 	private static final long serialVersionUID = -5253501132450911505L;
 
@@ -27,34 +25,40 @@ public class Seat implements Serializable {
 	private Long id;
 
 	private Integer rowNumber;
-	
+
 	private Integer colNumber;
 
-	private Boolean isReserved;
-	
-	//private Long screeningId;
+	private Integer reservationStatus;
 
-	@Temporal(TemporalType.DATE)
-	private Date reservationTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar reservationTime;
 
 	public Seat() {
 
 	}
 
-	public Seat(int rowNumber,  int colNumber) {
-		this.isReserved = Boolean.FALSE;
+	public Seat(int rowNumber, int colNumber) {
+		this.reservationStatus = Integer.valueOf(0);
 		this.rowNumber = rowNumber;
 		this.colNumber = colNumber;
 
 	}
-	
-	public Seat(Integer rowNumber, Integer colNumber, Boolean isReserved, Date reservationTime) {
+
+	public Seat(Integer rowNumber, Integer colNumber,
+			Integer reservationStatus, Calendar reservationTime) {
 		this.rowNumber = rowNumber;
 		this.colNumber = colNumber;
-		this.isReserved = isReserved;
+		this.reservationStatus = reservationStatus;
 		this.reservationTime = reservationTime;
-		//this.screeningId = screeningId;
 	}
+	
+	public Seat(Integer rowNumber, Integer colNumber, Calendar reservationTime) {
+		this.rowNumber = rowNumber;
+		this.colNumber = colNumber;
+		this.reservationTime = reservationTime;
+	}
+	
+	
 
 	public Long getId() {
 		return id;
@@ -71,7 +75,7 @@ public class Seat implements Serializable {
 	public void setRowNumber(Integer rowNumber) {
 		this.rowNumber = rowNumber;
 	}
-	
+
 	public Integer getColNumber() {
 		return colNumber;
 	}
@@ -80,29 +84,21 @@ public class Seat implements Serializable {
 		this.colNumber = colNumber;
 	}
 
-	public Boolean getIsReserved() {
-		return isReserved;
+	public Integer getReservationStatus() {
+		return reservationStatus;
 	}
 
-	public void setIsReserved(Boolean isReserved) {
-		this.isReserved = isReserved;
+	public void setReservationStatus(Integer reservationStatus) {
+		this.reservationStatus = reservationStatus;
 	}
 
-	public Date getReservationTime() {
+	public Calendar getReservationTime() {
 		return reservationTime;
 	}
 
-	public void setReservationTime(Date reservationTime) {
+	public void setReservationTime(Calendar reservationTime) {
 		this.reservationTime = reservationTime;
 	}
-
-//	public Long getScreeningId() {
-//		return screeningId;
-//	}
-//
-//	public void setScreeningId(Long screeningId) {
-//		this.screeningId = screeningId;
-//	}
 
 	@Override
 	public int hashCode() {
@@ -132,10 +128,8 @@ public class Seat implements Serializable {
 	@Override
 	public String toString() {
 		return "Seat [id=" + id + ", rowNumber=" + rowNumber + ", colNumber="
-				+ colNumber + ", isReserved=" + isReserved
+				+ colNumber + ", isReserved=" + reservationStatus
 				+ ", reservationTime=" + reservationTime + "]";
 	}
-
-	
 
 }

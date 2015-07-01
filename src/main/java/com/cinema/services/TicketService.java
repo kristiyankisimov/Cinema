@@ -3,8 +3,8 @@ package com.cinema.services;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -29,6 +29,7 @@ import com.cinema.model.Ticket;
 import com.cinema.services.beans.HistoryBean;
 import com.cinema.services.beans.SeatIdsBean;
 import com.cinema.services.beans.TicketBean;
+import com.cinema.utils.CinemaUtils;
 
 @Stateless
 @Path("tickets")
@@ -69,8 +70,14 @@ public class TicketService {
 			ticket.setUser(context.getCurrentUser());
 
 			Seat seat = seatDAO.getSeatById(seatsIds.get(i));
+<<<<<<< HEAD
 			Date now = new Date();
 			if (now.getTime() - seat.getReservationTime().getTime() >= 10 * 60 * 1000) {
+=======
+			Calendar now = Calendar.getInstance();
+			boolean isInTime = inTime(now, seat.getReservationTime());
+			if (!isInTime) {
+>>>>>>> origin/master
 				freeAllSeats(seatsIds);
 				return RESPOMSE_NOT_OK;
 			}
@@ -101,6 +108,7 @@ public class TicketService {
 		for (Ticket ticket : tickets) {
 			HistoryBean bean = new HistoryBean();
 			bean.setTicket(ticket);
+
 			String formattedDate = formatDate(ticket.getScreening().getDate());
 			bean.setFormattedString(formattedDate);
 
@@ -113,13 +121,18 @@ public class TicketService {
 	@POST
 	@Path("reserveSeat")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response reserveSeat(Seat seat) {
+	public synchronized Response reserveSeat(Seat seat) {
 		Seat currentSeat = seatDAO.getSeatById(seat.getId());
 		if (currentSeat == null) {
 			return RESPOMSE_NOT_OK;
 		}
+<<<<<<< HEAD
 		currentSeat.setIsReserved(true);
 		currentSeat.setReservationTime(new Date());
+=======
+		currentSeat.setReservationStatus(CinemaUtils.IN_PROCESS);
+		currentSeat.setReservationTime(Calendar.getInstance());
+>>>>>>> origin/master
 
 		return RESPONSE_OK;
 	}
@@ -127,12 +140,12 @@ public class TicketService {
 	@POST
 	@Path("freeSeat")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response freeSeat(Seat seat) {
+	public synchronized Response freeSeat(Seat seat) {
 		Seat currentSeat = seatDAO.getSeatById(seat.getId());
 		if (currentSeat == null) {
 			return RESPOMSE_NOT_OK;
 		}
-		currentSeat.setIsReserved(false);
+		currentSeat.setReservationStatus(CinemaUtils.FREE);
 		currentSeat.setReservationTime(null);
 
 		return RESPONSE_OK;
@@ -141,7 +154,7 @@ public class TicketService {
 	private void freeAllSeats(List<Long> seatIds) {
 		for (Long id : seatIds) {
 			Seat seat = seatDAO.getSeatById(id);
-			seat.setIsReserved(false);
+			seat.setReservationStatus(CinemaUtils.FREE);
 			seat.setReservationTime(null);
 		}
 	}
@@ -151,13 +164,49 @@ public class TicketService {
 			ticketDAO.addTicket(ticket);
 		}
 	}
+<<<<<<< HEAD
 
 	private String formatDate(Date date) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
+=======
+	
+	@POST
+	@Path("{ticketId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getMovieById(@PathParam("ticketId") String ticketId) {
+		Ticket chosenMovie = ticketDAO.getTicketById(Long.parseLong(ticketId));
+		
+		chosenMovie.setChecked(true);
+		return RESPONSE_OK;
+	}
+	
+	@GET
+	@Path("{Id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Ticket> getMovieByScreeningIdd(@PathParam("Id") Long Id) {
+		return ticketDAO.getTicketsByScreeningId(Id);
+	}
+	
 
-		return dateFormat.format(date);
+	private String formatDate(Calendar date) {
+>>>>>>> origin/master
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
+		return dateFormat.format(date.getTime());
 
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Ticket> getAllTicketss() {
+		return ticketDAO.getAllTickets();
+	}
+
+	private boolean inTime(Calendar from, Calendar to) {
+		if(to != null) {
+			return from.get(Calendar.MINUTE) - to.get(Calendar.MINUTE) <= CinemaUtils.SEAT_RESERVATION_TIME;
+		} 
+		return true;
+	}
+<<<<<<< HEAD
 
 	@GET
 	@Path("{userName}")
@@ -179,4 +228,6 @@ public class TicketService {
 		currentTicket.setChecked(true);
 		return RESPONSE_OK;
 	}
+=======
+>>>>>>> origin/master
 }

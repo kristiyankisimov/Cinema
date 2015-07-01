@@ -4,10 +4,8 @@
 <meta charset="UTF-8">
 <title>History</title>
 <link rel="stylesheet" type="text/css "
-	href="./../../styles/userstyle.css">
-	
-<link rel="stylesheet" type="text/css"
 	href="./../../styles/program-style.css">
+
 <script type="text/javascript" src="./../../js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -17,6 +15,17 @@
 			dataType : "json",
 			success : function(data) {
 				renderTable(data.historyBean);
+			}
+		});
+		$.ajax({
+			url : './../../rest/user/current',
+			type : "GET",
+			dataType : "text"
+		}).always(function(data) {
+			if (typeof data != 'undefined') {
+				$("#user-holder").html(data);
+			} else {
+				$(".welcome-greeting").hide();
 			}
 		});
 	});
@@ -37,7 +46,18 @@
 		row.append($("<td>" + rowData.hall.number + "</td>"));
 		row.append($("<td>" + rowData.movie.price + "</td>"));
 		row.append($("<td>" + rowData.movie.length + "</td>"));
-		row.append($("<td>" + rowData.movie.length + "</td>"));
+		row.append($("<td>" + isChecked(ticketElement.ticket.checked) + "</td>"));
+	}
+	
+	function isChecked(checked) {
+		var arrived = 'Yes';
+		var not = 'No';
+		if(checked == true) {
+			return arrived;
+		}
+		else if (checked == false) {
+			return not;
+		}
 	}
 
 </script>
@@ -46,7 +66,10 @@
 <body>
 
 	<div id="masthead">
-
+	<div class="welcome-greeting">
+			<h7>User: <span id="user-holder"></h7>
+			</span>
+		</div>
 		<h1>
 			<br> Cinema web app!
 		</h1>
@@ -80,6 +103,7 @@
 			<li><a href="program.html">Programs</a></li>
 			<li><a href="history.html">History</a></li>
 			<li><a href="contact.html">Contact</a></li>
+		
 
 		</ul>
 
@@ -95,6 +119,7 @@
 					<th>Hall</th>
 					<th>Price</th>
 					<th>Duration</th>
+					<th>Watched</th>
 				</tr>
 			</table>
 		</div>
