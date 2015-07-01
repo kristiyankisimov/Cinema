@@ -71,13 +71,14 @@ public class ScreeningService {
 
 		return RESPONSE_OK;
 	}
-	
+
 	@GET
 	@Path("current")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Screening getCurrentMovie() {
 		Screening screening = ticket.getScreening();
-		Screening updatedScreening = screeningDAO.getScreeningById(screening.getId());
+		Screening updatedScreening = screeningDAO.getScreeningById(screening
+				.getId());
 		ticket.setScreening(updatedScreening);
 		return updatedScreening;
 	}
@@ -98,5 +99,4 @@ public class ScreeningService {
 		return dateFormat.format(date);
 
 	}
-
 }

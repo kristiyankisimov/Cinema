@@ -1,12 +1,14 @@
 package com.cinema.dao;
 
 import java.security.MessageDigest;
+import java.util.Collection;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import com.cinema.model.Movie;
 import com.cinema.model.User;
 
 @Singleton
@@ -34,6 +36,14 @@ public class UserDAO {
         query.setParameter("userName", userName);
         return queryUser(query);
     }
+    
+    public Collection<User> getUserNames(){
+    	TypedQuery<User> query = em.createNamedQuery("getUserNames",
+				User.class);
+    	query.setParameter("isAdmin", false);
+
+		return queryAllUsers(query);
+    }
 
     private User queryUser(TypedQuery<User> query) {
         try {
@@ -53,4 +63,11 @@ public class UserDAO {
         return password;
     }
 	
+	private Collection<User> queryAllUsers(TypedQuery<User> query) {
+		try {
+			return query.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }

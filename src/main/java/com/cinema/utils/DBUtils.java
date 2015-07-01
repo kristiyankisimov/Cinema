@@ -12,11 +12,13 @@ import javax.persistence.PersistenceContext;
 
 import com.cinema.dao.MovieDAO;
 import com.cinema.dao.ScreeningDAO;
+import com.cinema.dao.TicketDAO;
 import com.cinema.dao.UserDAO;
 import com.cinema.model.Hall;
 import com.cinema.model.Movie;
 import com.cinema.model.Screening;
 import com.cinema.model.Seat;
+import com.cinema.model.Ticket;
 import com.cinema.model.User;
 
 @Stateless
@@ -53,16 +55,15 @@ public class DBUtils {
 			new Movie("a;odfgd;gkaa", "sdf", 12, 4.3)
 
 	};
+
 	private static Hall[] HALLS = {
 
 	new Hall(1), new Hall(2) };
-
 
 	private static List<Seat> seat1 = new ArrayList<>(generateSeats());
 	private static List<Seat> seat2 = new ArrayList<>(generateSeats());
 	private static List<Seat> seat3 = new ArrayList<>(generateSeats());
 	private static List<Seat> seat4 = new ArrayList<>(generateSeats());
-
 
 	private static Screening[] SCREENING = {
 			new Screening(getDate(-1), MOVIES[0], HALLS[0], seat1),
@@ -71,6 +72,16 @@ public class DBUtils {
 			new Screening(getDate(1), MOVIES[2], HALLS[0], seat4)
 
 	};
+
+	private static Ticket[] TICKETS = {
+			new Ticket(USERS[1], SCREENING[0],
+					new Seat(6, 6, true, new Date()), true),
+			new Ticket(USERS[2], SCREENING[1],
+					new Seat(2, 2, true, new Date()), false),
+			new Ticket(USERS[2], SCREENING[3],
+					new Seat(3, 3, true, new Date()), true),
+			new Ticket(USERS[1], SCREENING[2],
+					new Seat(4, 5, true, new Date()), false) };
 
 	@PersistenceContext
 	private EntityManager em;
@@ -84,11 +95,15 @@ public class DBUtils {
 	@EJB
 	private ScreeningDAO screeningDAO;
 
+	@EJB
+	private TicketDAO ticketDAO;
+
 	public void addTestDataToDB() {
 		deleteData();
 		addTestUsers();
-		// addTestMovies();
+		addTestMovies();
 		addTestScreening();
+		addTestTickets();
 	}
 
 	private void deleteData() {
@@ -106,11 +121,11 @@ public class DBUtils {
 		}
 	}
 
-//	private void addTestMovies() {
-//		for (Movie movie : MOVIES) {
-//			movieDAO.addMovie(movie);
-//		}
-//	}
+	private void addTestMovies() {
+		for (Movie movie : MOVIES) {
+			movieDAO.addMovie(movie);
+		}
+	}
 
 	private void addTestScreening() {
 		for (Screening screening : SCREENING) {
@@ -118,4 +133,9 @@ public class DBUtils {
 		}
 	}
 
+	private void addTestTickets() {
+		for (Ticket ticket : TICKETS) {
+			ticketDAO.addTicket(ticket);
+		}
+	}
 }

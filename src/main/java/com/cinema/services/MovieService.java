@@ -1,5 +1,6 @@
 package com.cinema.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.ejb.Stateless;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import com.cinema.dao.MovieDAO;
 import com.cinema.model.Movie;
+import com.cinema.model.Screening;
 import com.cinema.services.beans.TicketBean;
 
 @Stateless
@@ -43,7 +45,7 @@ public class MovieService {
 		ticket.setChosenMovie(chosenMovie);
 		return RESPONSE_OK;
 	}
-	
+
 	@GET
 	@Path("current")
 	@Produces(MediaType.APPLICATION_JSON)
