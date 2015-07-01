@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,8 +19,10 @@ import javax.ws.rs.core.Response;
 
 import com.cinema.dao.ScreeningDAO;
 import com.cinema.model.Screening;
+import com.cinema.model.Seat;
 import com.cinema.services.beans.ScreeningBean;
 import com.cinema.services.beans.TicketBean;
+import com.cinema.utils.CinemaUtils;
 
 @Stateless
 @Path("screenings")
@@ -71,13 +73,15 @@ public class ScreeningService {
 
 		return RESPONSE_OK;
 	}
-	
+
 	@GET
 	@Path("current")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Screening getCurrentMovie() {
 		Screening screening = ticket.getScreening();
-		Screening updatedScreening = screeningDAO.getScreeningById(screening.getId());
+		Screening updatedScreening = screeningDAO.getScreeningById(screening
+				.getId());
+		updateSeatsStatus(updatedScreening.getSeats());
 		ticket.setScreening(updatedScreening);
 		return updatedScreening;
 	}
@@ -96,6 +100,25 @@ public class ScreeningService {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
 		return dateFormat.format(date.getTime());
 
+	}
+
+	private void updateSeatsStatus(List<Seat> seats) {
+		for (Seat seat : seats) {
+			Calendar now = Calendar.getInstance();
+			boolean isInTime = inTime(now, seat.getReservationTime());
+			if (seat.getReservationStatus() == CinemaUtils.IN_PROCESS
+					&& !isInTime) {
+				seat.setReservationStatus(CinemaUtils.FREE);
+				seat.setReservationTime(null);
+			}
+		}
+	}
+
+	private boolean inTime(Calendar from, Calendar to) {
+		if(to != null) {
+			return from.get(Calendar.MINUTE) - to.get(Calendar.MINUTE) <= CinemaUtils.SEAT_RESERVATION_TIME;
+		} 
+		return true;
 	}
 
 }

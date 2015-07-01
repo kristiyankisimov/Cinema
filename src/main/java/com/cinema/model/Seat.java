@@ -2,7 +2,6 @@ package com.cinema.model;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,10 +15,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "getSeatById", query = "SELECT s FROM Seat s WHERE s.id = :id") })
+@NamedQueries({ @NamedQuery(name = "getSeatById", query = "SELECT s FROM Seat s WHERE s.id = :id") })
 public class Seat implements Serializable {
-	
 
 	private static final long serialVersionUID = -5253501132450911505L;
 
@@ -28,11 +25,11 @@ public class Seat implements Serializable {
 	private Long id;
 
 	private Integer rowNumber;
-	
+
 	private Integer colNumber;
 
-	private Boolean isReserved;
-	
+	private Integer reservationStatus;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar reservationTime;
 
@@ -40,17 +37,18 @@ public class Seat implements Serializable {
 
 	}
 
-	public Seat(int rowNumber,  int colNumber) {
-		this.isReserved = Boolean.FALSE;
+	public Seat(int rowNumber, int colNumber) {
+		this.reservationStatus = Integer.valueOf(0);
 		this.rowNumber = rowNumber;
 		this.colNumber = colNumber;
 
 	}
-	
-	public Seat(Integer rowNumber, Integer colNumber, Boolean isReserved, Calendar reservationTime) {
+
+	public Seat(Integer rowNumber, Integer colNumber,
+			Integer reservationStatus, Calendar reservationTime) {
 		this.rowNumber = rowNumber;
 		this.colNumber = colNumber;
-		this.isReserved = isReserved;
+		this.reservationStatus = reservationStatus;
 		this.reservationTime = reservationTime;
 	}
 
@@ -69,7 +67,7 @@ public class Seat implements Serializable {
 	public void setRowNumber(Integer rowNumber) {
 		this.rowNumber = rowNumber;
 	}
-	
+
 	public Integer getColNumber() {
 		return colNumber;
 	}
@@ -78,12 +76,12 @@ public class Seat implements Serializable {
 		this.colNumber = colNumber;
 	}
 
-	public Boolean getIsReserved() {
-		return isReserved;
+	public Integer getReservationStatus() {
+		return reservationStatus;
 	}
 
-	public void setIsReserved(Boolean isReserved) {
-		this.isReserved = isReserved;
+	public void setReservationStatus(Integer reservationStatus) {
+		this.reservationStatus = reservationStatus;
 	}
 
 	public Calendar getReservationTime() {
@@ -122,10 +120,8 @@ public class Seat implements Serializable {
 	@Override
 	public String toString() {
 		return "Seat [id=" + id + ", rowNumber=" + rowNumber + ", colNumber="
-				+ colNumber + ", isReserved=" + isReserved
+				+ colNumber + ", isReserved=" + reservationStatus
 				+ ", reservationTime=" + reservationTime + "]";
 	}
-
-	
 
 }

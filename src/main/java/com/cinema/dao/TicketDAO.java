@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import com.cinema.model.Seat;
 import com.cinema.model.Ticket;
 
 @Singleton
@@ -54,6 +55,10 @@ public class TicketDAO {
 		TypedQuery<Ticket> query = em.createNamedQuery("getAllCheckedTickets",
 				Ticket.class).setParameter("checked", false);
 		return queryAllMovies(query);
+	}
+
+	public Collection<Seat> getAllTicketSeats() {
+		return null;
 	}
 
 	private Ticket queryMovie(TypedQuery<Ticket> query) {

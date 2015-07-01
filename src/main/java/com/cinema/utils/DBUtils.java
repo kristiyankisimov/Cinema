@@ -32,7 +32,7 @@ public class DBUtils {
 		List<Seat> seats = new ArrayList<Seat>();
 		for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 21; j++) {
-				seats.add(new Seat(i, j, false, null));
+				seats.add(new Seat(i, j, 0, null));
 			}
 		}
 		return seats;

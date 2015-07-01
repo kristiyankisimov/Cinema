@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 		@NamedQuery(name = "getTicketsByUserName", query = "SELECT t FROM Ticket t WHERE t.user.userName = :userName"),
 		@NamedQuery(name = "getTicketsByScreeningId", query = "SELECT t FROM Ticket t WHERE t.screening.id = :screeningId"),
 		@NamedQuery(name = "getAllCheckedTickets", query = "SELECT t FROM Ticket t WHERE t.checked = :checked"),
-		@NamedQuery(name = "getAllTickets", query = "SELECT t FROM Ticket t") })
+		@NamedQuery(name = "getAllTickets", query = "SELECT t FROM Ticket t"),
+		@NamedQuery(name = "getAllTicketsSeats", query = "SELECT t.seat FROM Ticket t") })
 public class Ticket {
 
 	@Id

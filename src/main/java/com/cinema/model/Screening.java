@@ -3,7 +3,6 @@ package com.cinema.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -43,7 +42,7 @@ public class Screening implements Serializable {
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Hall hall;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Seat> seats = new ArrayList<>();
 
@@ -90,7 +89,7 @@ public class Screening implements Serializable {
 	public void setHall(Hall hall) {
 		this.hall = hall;
 	}
-	
+
 	public List<Seat> getSeats() {
 		return seats;
 	}

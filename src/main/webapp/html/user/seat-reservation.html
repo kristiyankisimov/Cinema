@@ -24,7 +24,7 @@
 						var seatId = seats[i].id;
 						var rowNumber = seats[i].rowNumber;
 						var colNumber = seats[i].colNumber;
-						var isReserved = seats[i].isReserved;
+						var reservationStatus = seats[i].reservationStatus;
 
 						if (colNumber === 0) {
 							if (rowNumber === 0) {
@@ -43,7 +43,7 @@
 									"<div class='emptySpace'>" + colNumber
 											+ "</div>");
 						} else {
-							if (isReserved) {
+							if (reservationStatus == 1 || reservationStatus == 2) {
 								$('#seats')
 										.append(
 												"<div class='reservedSeat' id='" + seatId + "'></div>");
