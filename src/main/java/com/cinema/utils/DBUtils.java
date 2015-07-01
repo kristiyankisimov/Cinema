@@ -47,10 +47,10 @@ public class DBUtils {
 			new User("test4", "Ivan4", "ivan4@haker.bg", Boolean.FALSE,
 					"123456") };
 
-	private static Movie[] MOVIES = { new Movie("aaa", "bdfgdfgdfg", 12, 1.0),
-			new Movie("kdfjg", "bd", 12, 5.0),
-			new Movie(".lghk;fh", "dgff", 12, 6.0),
-			new Movie("a;odfgd;gkaa", "sdf", 12, 4.3)
+	private static Movie[] MOVIES = { new Movie("San Andreas", "San Andreas is a 2015 American 3D disaster film directed by Brad Peyton.", 60, 8.0),
+			new Movie("Harry Potter", "Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling. The series chronicles the adventures of a young wizard, Harry Potter, the titular character, and his friends Ronald Weasley and Hermione Granger, all of whom are students at Hogwarts School of Witchcraft and Wizardry. The main story arc concerns Harry's quest to overcome the Dark wizard Lord Voldemort, who aims to become immortal, conquer the wizarding world, subjugate non-magical people, and destroy all those who stand in his way, especially Harry Potter.", 180, 12.0),
+			new Movie("Tommorowland", "Tommorowland is a 2015 American science-fiction mystery adventure directed by Brad Bird, and co-written and produced by Bird and Damon Lindelof. ", 90, 10.0),
+			new Movie("White Fang", "White Fang is a novel by American author Jack London (1876–1916) — and the name of the book's eponymous character, a wild wolfdog. First serialized in Outing magazine, it was published in 1906. The story takes place in Yukon Territory, Canada, during the 1890s Klondike Gold Rush and details White Fang's journey to domestication. It is a companion novel (and a thematic mirror) to London's best-known work, The Call of the Wild, which is about a kidnapped, domesticated dog embracing his wild ancestry to survive and thrive in the wild.", 60, 4.3)
 
 	};
 	private static Hall[] HALLS = {

@@ -8,6 +8,19 @@
 <script type="text/javascript" src="./../../js/jquery-2.1.3.min.js"></script>
 
 <script type="text/javascript">
+	$(document).ready(function() {
+		$.ajax({
+			url : './../../rest/user/current',
+			type : "GET",
+			dataType : "text"
+		}).always(function(data) {
+			if (typeof data != 'undefined') {
+				$("#user-holder").html(data);
+			} else {
+				$(".welcome-greeting").hide();
+			}
+		});
+	});
 	$.ajax({
 		url : './../../rest/screenings/current',
 		type : "GET",
@@ -30,7 +43,10 @@
 <body>
 
 	<div id="masthead">
-
+		<div class="welcome-greeting">
+			<h7>User: <span id="user-holder"></h7>
+			</span>
+		</div>
 		<h1>
 			<br> Cinema web app!
 		</h1>
@@ -69,17 +85,29 @@
 
 	</div>
 	<div id="wrapper">
-		<div><h5>Title: <span id="title"></span></h5> </div>
+		<div>
+			<h5>
+				Title: <span id="title"></span>
+			</h5>
+		</div>
 		<br>
-		<div><h5>Description: <span id="description"></span></h5></div>
+		<div>
+			<h5>
+				Description: <span id="description"></span>
+			</h5>
+		</div>
 		<br>
-		<div><h5>Length: <span id="length"></span></h5></div>
+		<div>
+			<h5>
+				Length: <span id="length"></span>
+			</h5>
+		</div>
 		<br>
 	</div>
 	<br>
 	<td>
-	<button class="abut" onclick="bookATicket()" >Book a Ticket</button>
+		<button class="abut" onclick="bookATicket()">Book a Ticket</button>
 	</td>
-	
+
 </body>
 </html>

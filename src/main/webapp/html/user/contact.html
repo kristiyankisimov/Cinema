@@ -8,14 +8,29 @@
 <script type="text/javascript" src="./../../js/jquery-2.1.3.min.js"></script>
 
 <script type="text/javascript">
-	
+$(document).ready(function() {
+	$.ajax({
+		url : './../../rest/user/current',
+		type : "GET",
+		dataType : "text"
+	}).always(function(data) {
+		if (typeof data != 'undefined') {
+			$("#user-holder").html(data);
+		} else {
+			$(".welcome-greeting").hide();
+		}
+	});
+});	
 </script>
 
 </head>
 <body>
 
 	<div id="masthead">
-
+	<div class="welcome-greeting">
+			<h7>User: <span id="user-holder"></h7>
+			</span>
+		</div>
 		<h1>
 			<br> Cinema web app!
 		</h1>
