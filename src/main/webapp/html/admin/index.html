@@ -60,10 +60,10 @@
 			function() {
 				$('#getTicketsByUser').click(
 						function() {
+							var id = $('#userList').find(":selected").val();
+							console.log(id);
 							$.ajax({
-								url : './../../rest/tickets/'
-										+ $('#userList').find(":selected")
-												.val(),
+								url : './../../rest/tickets/username/' + id,
 								type : "GET",
 								dataType : "json",
 								success : function(data) {
@@ -73,6 +73,7 @@
 						});
 				$('#getTicketsByScreening').click(function() {
 					var id = $('#allScreenings').find(":selected").val();
+					console.log(id);
 					var a = './../../rest/tickets/' + id;
 					$.ajax({
 						url : a,

@@ -178,11 +178,11 @@ public class TicketService {
 
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Ticket> getAllTicketss() {
-		return ticketDAO.getAllTickets();
-	}
+//	@GET
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Collection<Ticket> getAllTicketss() {
+//		return ticketDAO.getAllTickets();
+//	}
 
 	private boolean inTime(Calendar from, Calendar to) {
 		if (to != null) {
@@ -192,7 +192,7 @@ public class TicketService {
 	}
 
 	@GET
-	@Path("{userName}")
+	@Path("username/{userName}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Ticket> getTicketByUserName(
 			@PathParam("userName") String userName) {

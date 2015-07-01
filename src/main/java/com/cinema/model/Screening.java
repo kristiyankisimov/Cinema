@@ -43,7 +43,7 @@ public class Screening implements Serializable {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Hall hall;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private List<Seat> seats = new ArrayList<>();
 
 	public Screening() {
