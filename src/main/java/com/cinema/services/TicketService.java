@@ -76,7 +76,8 @@ public class TicketService {
 				freeAllSeats(seatsIds);
 				return RESPOMSE_NOT_OK;
 			}
-
+			
+			seat.setReservationStatus(CinemaUtils.RESERVED);
 			ticket.setSeat(seat);
 			ticket.setChecked(false);
 			tickets.add(ticket);

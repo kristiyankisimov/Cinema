@@ -5,6 +5,8 @@
 <title>Program</title>
 <link rel="stylesheet" type="text/css"
 	href="./../../styles/program-style.css">
+<link rel="stylesheet" type="text/css"
+	href="./../../styles/admin-style.css">
 <script type="text/javascript" src="./../../js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -59,8 +61,6 @@
 			BookTd.append(link);
 		}
 		row.append(BookTd);
-
-		row.append($("<td/>"));
 	}
 
 	function bookATicket(object) {
@@ -143,13 +143,14 @@
 		<br> <br> <br>
 
 		<div>
-			<table id="screenings_table" class="table">
+			<table id="screenings_table"  class="CSSTableGenerator">
 				<tr>
 					<th>Date</th>
 					<th>Movie</th>
 					<th>Hall</th>
 					<th>Price</th>
 					<th>Duration</th>
+					<th>Book A Ticket</th>
 				</tr>
 			</table>
 		</div>
