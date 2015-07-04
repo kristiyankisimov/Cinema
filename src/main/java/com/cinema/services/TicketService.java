@@ -156,15 +156,15 @@ public class TicketService {
 		}
 	}
 
-	@POST
-	@Path("{ticketId}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getMovieById(@PathParam("ticketId") String ticketId) {
-		Ticket chosenMovie = ticketDAO.getTicketById(Long.parseLong(ticketId));
-
-		chosenMovie.setChecked(true);
-		return RESPONSE_OK;
-	}
+//	@POST
+//	@Path("{ticketId}")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Response getMovieById(@PathParam("ticketId") String ticketId) {
+//		Ticket chosenMovie = ticketDAO.getTicketById(Long.parseLong(ticketId));
+//
+//		chosenMovie.setChecked(true);
+//		return RESPONSE_OK;
+//	}
 
 	@GET
 	@Path("{Id}")

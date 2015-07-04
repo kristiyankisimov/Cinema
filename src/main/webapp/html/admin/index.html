@@ -73,7 +73,6 @@
 						});
 				$('#getTicketsByScreening').click(function() {
 					var id = $('#allScreenings').find(":selected").val();
-					console.log(id);
 					var a = './../../rest/tickets/' + id;
 					$.ajax({
 						url : a,
@@ -101,7 +100,7 @@
 		row.append($("<td>" + ticket.user.name + "</td>"));
 		row.append($("<td>" + ticket.checked + "</td>"));
 		if (ticket.checked == false) {
-			row.append($("<td>" + "<button onclick=check(" + ticket.id
+			row.append($("<td>" + "<button onclick=check1(" + ticket.id
 					+ ") value=" + ticket.id + ">Check</button>" + "</td>"));
 		}
 	}
@@ -136,14 +135,30 @@
 			statusCode : {
 				200 : function() {
 					$.ajax({
-						url : './../../rest/tickets/'
+						url : './../../rest/tickets/username/'
 								+ $('#userList').find(":selected").val(),
 						type : "GET",
 						dataType : "json",
 						success : function(data) {
-							renderTable(data.ticket);
+							renderTableByUsers(data.ticket);
 						}
 					});
+				}
+			},
+			400 : function() {
+				alert("Error checking ticket!");
+			}
+		})
+	};
+	
+	function check1(id) {
+		$.ajax({
+			url : './../../rest/tickets/' + id,
+			type : "POST",
+			contentType : "application/json;charset=UTF-8",
+			statusCode : {
+				200 : function() {
+					$('#getTicketsByScreening').click();
 				}
 			},
 			400 : function() {
